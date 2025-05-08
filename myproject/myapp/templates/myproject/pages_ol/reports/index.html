@@ -1,0 +1,33 @@
+{% extends "myproject/pages_ol/index.html" %}
+
+{% block title %}Отчёты | ОЛ{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+  H1 { 
+   font-size: 120%; 
+   font-family: Verdana, Arial, Helvetica, sans-serif; 
+   color: #333366; 
+  }
+</style>
+
+<nav>
+    <div id="app">
+        <div class="Color-block">
+            <div class="buttons-container">
+                <a href="{% url 'ol_ot1' %}" class="btn btn-outline-primary {% if request.resolver_match.url_name == 'ol_ot1' %}active{% endif %} Тmontserrat-20-italic">
+                    Отчёты по ОП</a>
+                <a href="{% url 'ol_ot2' %}" class="btn btn-outline-primary {% if request.resolver_match.url_name == 'ol_ot2' %}active{% endif %} Тmontserrat-20-italic">
+                    Отчёты по сотрудникам ОЛ</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+    {% block inner_content %}
+    <!-- Сюда будет подставляться контент дочерних шаблонов -->
+    {% endblock %}
+</div>
+{% endblock %}

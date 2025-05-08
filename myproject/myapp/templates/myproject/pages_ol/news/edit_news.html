@@ -1,0 +1,16 @@
+{% extends 'myproject/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Редактирование новости</h2>
+    <form method="post" action="{{ form_action }}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="content" class="form-label">Текст новости:</label>
+            <textarea class="form-control" id="content" name="content" rows="6">{{ news.content }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'ol-news' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

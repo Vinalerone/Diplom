@@ -1,0 +1,1031 @@
+{% extends "myproject/pages_ol/index.html" %}
+
+{% block title %}Экспертиза | ОЛ{% endblock %}
+
+{% block content %}
+<style>
+
+  .scroll-shablon {
+    height: 100%;
+    overflow-y: auto; /* Скролл только по вертикали */
+    overflow-y: auto;  /*вертикальный скролл */
+  }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* БЛОК ДЛЯ ШАБЛОНА (ДОБАЛВЕНИЕ) */
+    .input-MSP {
+        width: 100%;
+        min-height: 130px;
+        box-sizing: border-box;
+        padding: 15px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        resize: none;
+        /* Отключаем изменение размера */
+        overflow-y: hidden;
+        /* Скрываем вертикальный скролл */
+    }
+
+    .input-MSP:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+
+    /* //Для блоков */
+    .document-frame {
+        width: 800px;
+        height: 800px;
+        border: 2px solid #000;
+        padding: 15px;
+        position: absolute;
+        background-color: white;
+        cursor: move;
+        user-select: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 500;
+    }
+
+    .STR1 {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .STR2 {
+        margin-left: 5px;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .STR3 {
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .STR4 {
+        margin-left: 20px;
+        line-height: 1.4;
+    }
+
+    .divider {
+        height: 1px;
+        background-color: #000;
+        margin: 15px 0;
+    }
+</style>
+<Div class="Color-block">
+    <h3 class="montserrat-35-italic">09. 03.02 - 2025 -Информационные системы и технологии ИСиТ</h3>
+    <hr>
+    <!-- Ваш контент здесь -->
+    <p class="bold-text Тmontserrat-30-italic"> Схема формирования компетенций </p>
+
+    <div class="container-fluid px-2">
+        <div class="row g-2">
+            <!-- Таблица -->
+            <div class="col-md-7  overflow-auto">
+                <table class="Тmontserrat-18-italic ">
+                    <colgroup>
+                        <col style="width: 10%;"> <!-- 5 частей -->
+                        <col style="width: 10%;"> <!-- 1 часть -->
+                        <col style="width: 10%;"> <!-- 1 часть -->
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col">Дата добалвения</th>
+                            <th class="col">Дата экспертизы</th>
+                            <th class="col">Файл</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class=" scroll-table-body">
+                    <table id="" class="Тmontserrat-16-italic">
+                        <colgroup>
+                            <col style="width: 10%;"> <!-- 5 частей -->
+                            <col style="width: 10%;"> <!-- 1 часть -->
+                            <col style="width: 10%;"> <!-- 1 часть -->
+                        </colgroup>
+                        <tbody>
+                            <tr class="clickable-row" data-target="block-2">
+                                <td>11.22.24 </td>
+                                <td> </td>
+                                <td href="https://web.telegram.org" style="color: blue;"> Скачать</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- КНОПКИ -->
+            <div class="col-md-4 d-flex gap-3">
+                <button class="btn btn-outline-success flex-grow-1 Тmontserrat-16-italic">Принять</button>
+                <button id="commentButton1" class="btn btn-outline-warning  flex-grow-1 Тmontserrat-16-italic">Оставить комментарий</button>
+            </div>
+        </div>
+        <div class="SCR-Block1" style=" display: none;" id="commentBlock1">
+            <h4 class="Тmontserrat-18-italic ">Комментарий</h4>
+            <textarea class="input-MSP Тmontserrat-16-italic" placeholder="Введите текст здесь..."></textarea>
+            <div class="d-flex gap-3 Тmontserrat-16-italic">
+                <div class="col d-flex justify-content-start Тmontserrat-16-italic">
+                    <button class="btn btn-outline-info flex-grow-1 btn-with-icon Тmontserrat-16-italic" id="LLD1">
+                        <i class="bi bi-folder-plus Тmontserrat-16-italic"></i>
+                        Выбрать шаблон
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <button class="btn btn-outline-danger flex-grow-1 Тmontserrat-16-italic">
+                        Отправить документ на доработку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Второй блок -->
+    <p class="bold-text Тmontserrat-30-italic"> Матрица формирования компетенций </p>
+
+    <div class="container-fluid px-2">
+        <div class="row g-2">
+            <!-- Таблица -->
+            <div class="col-md-7  overflow-auto">
+                <table class="Тmontserrat-18-italic ">
+                    <colgroup>
+                        <col style="width: 10%;"> <!-- 5 частей -->
+                        <col style="width: 10%;"> <!-- 1 часть -->
+                        <col style="width: 10%;"> <!-- 1 часть -->
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col">Дата добалвения</th>
+                            <th class="col">Дата экспертизы</th>
+                            <th class="col">Файл</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class=" scroll-table-body">
+                    <table id="" class="Тmontserrat-16-italic">
+                        <colgroup>
+                            <col style="width: 10%;"> <!-- 5 частей -->
+                            <col style="width: 10%;"> <!-- 1 часть -->
+                            <col style="width: 10%;"> <!-- 1 часть -->
+                        </colgroup>
+                        <tbody>
+                            <tr class="clickable-row" data-target="block-2">
+                                <td>11.22.24 </td>
+                                <td> </td>
+                                <td href="https://web.telegram.org" style="color: blue;"> Скачать</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- КНОПКИ -->
+            <div class="col-md-4 d-flex gap-3">
+                <button class="btn btn-outline-success flex-grow-1 Тmontserrat-16-italic" id="">Принять</button>
+                <button id="commentButton2" class=" LLD2 btn btn-outline-warning  flex-grow-1 Тmontserrat-16-italic">Оставить
+                    комментарий</button>
+            </div>
+        </div>
+        <div class="SCR-Block1" style=" display: none;" id="commentBlock2">
+            <h4 class="Тmontserrat-18-italic ">Комментарий</h4>
+            <textarea class="input-MSP Тmontserrat-16-italic" placeholder="Введите текст здесь..."></textarea>
+            <div class="d-flex gap-3 Тmontserrat-16-italic">
+                <div class="col d-flex justify-content-start">
+                    <button class="btn btn-outline-info flex-grow-1 btn-with-icon" id="MMN2">
+                        <i class="bi bi-folder-plus Тmontserrat-16-italic"></i> <!-- Иконка папки -->
+                        Выбрать шаблон
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-end ">
+                    <button class="btn btn-outline-danger flex-grow-1 Тmontserrat-16-italic">
+                        Отправить документ на доработку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Третий блок -->
+    <p class="bold-text Тmontserrat-30-italic"> Паспорт компетенций </p>
+
+    <div class="container-fluid px-2">
+        <div class="row g-2">
+            <!-- Таблица -->
+            <div class="col-md-7  overflow-auto">
+                <table class="Тmontserrat-18-italic ">
+                    <colgroup>
+                        <col style="width: 10%;"> <!-- 5 частей -->
+                        <col style="width: 10%;"> <!-- 1 часть -->
+                        <col style="width: 10%;"> <!-- 1 часть -->
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col">Дата добалвения</th>
+                            <th class="col">Дата экспертизы</th>
+                            <th class="col">Файл</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class=" scroll-table-body">
+                    <table id="" class="Тmontserrat-16-italic">
+                        <colgroup>
+                            <col style="width: 10%;"> <!-- 5 частей -->
+                            <col style="width: 10%;"> <!-- 1 часть -->
+                            <col style="width: 10%;"> <!-- 1 часть -->
+                        </colgroup>
+                        <tbody>
+                            <tr class="clickable-row" data-target="block-2">
+                                <td>11.22.24 </td>
+                                <td> </td>
+                                <td href="https://web.telegram.org" style="color: blue;"> Скачать</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- КНОПКИ -->
+            <div class="col-md-4 d-flex gap-3">
+                <button class=" btn btn-outline-success flex-grow-1  Тmontserrat-16-italic">Принять</button>
+                <button id="commentButton3" class="
+                Тmontserrat-16-italic  btn btn-outline-warning  flex-grow-1">Оставить комментарий</button>
+            </div>
+        </div>
+        <div class="SCR-Block1" style=" display: none;" id="commentBlock3">
+            <h4 class="Тmontserrat-18-italic ">Комментарий</h4>
+            <textarea class="input-MSP Тmontserrat-16-italic" placeholder="Введите текст здесь..."></textarea>
+            <div class="d-flex gap-3 Тmontserrat-16-italic">
+                <div class="col d-flex justify-content-start">
+                    <button id="LLD3" class="btn btn-outline-info flex-grow-1 btn-with-icon">
+                        <i class="bi bi-folder-plus Тmontserrat-16-italic"></i> <!-- Иконка папки -->
+                        Выбрать шаблон
+                    </button>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <button class="btn btn-outline-danger flex-grow-1 Тmontserrat-16-italic">
+                        Отправить документ на доработку
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Шаблон1 по схеме -->
+    <div class="document-frame Color-blockLLK1" style="display: none;" id="draggable-frame1">
+        <!-- Оглавление для первого шаблона -->
+        <div class="container mb-1 d-flex">
+            <div class="row  w-100 justify-content-center align-items-center"> <!-- Основной flex-контейнер -->
+                <div class="col-md-1">
+                    <button class="btn btn-outline-danger rounded-3 p-2" type="button" id="KNOPKA_SKRST_SHABL1">
+                        <i class="bi bi-x-lg"></i> <!-- Иконка крестика -->
+                    </button>
+                </div>
+                <div class="col-md-11">
+                    <h4 class="Тmontserrat-25-italic">Шаблоны по схемам формирования компетенций</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Шаблон  -->
+        <div class="container">
+            <div class="row"> <!-- Основной flex-контейнер -->
+                <!-- Кнопка закрыть -->
+
+                <!-- Поле поиска -->
+                <div class="col-md-11">
+                    <input type="text" class="form-control Тmontserrat-16-italic" placeholder="Поиск шаблонов...">
+                </div>
+
+                <!-- Кнопка поиска -->
+                <div class="col-md-1">
+                    <button class="btn btn-primary" type="button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-2 justify-content-start">
+                <div class="col-auto">
+                    <!-- КНОПКА ДЛЯ СОХДАНИЯ ШАБЛОНА -->
+                    <button id="createTemplateBtn" class="btn btn-primary px-4 py-2 rounded-3 Тmontserrat-16-italic" type="button">
+                        <i class="bi bi-file-earmark-plus me-2"></i> Создать шаблон
+                    </button>
+                </div>
+            </div>
+            <!-- ТУТ редактировать для создания шаблона! -->
+            <div class="row mt-2 justify-content-start HHGG" style="display: none;">
+                <div class="">
+                    Введите наименование шаблона
+                    <p>
+                        <textarea 
+                          class="form-control Тmontserrat-16-italic" 
+                          placeholder="Введите наименование шаблона здесь..."
+                          rows="1"
+                          style="resize: none; border-radius: 8px; border: 1px solid #ced4da;"
+                        ></textarea>
+                      </p>
+                    Введите текст шаблона
+                    <p><textarea class="input-MSP form-control Тmontserrat-16-italic" placeholder="Введите текст здесь..."
+                        rows="4"></textarea></p>
+                    <button class="btn btn-primary px-4 py-2 rounded-3" type="button">
+                        <i class="bi bi-save me-2"></i> Сохранить шаблон
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!-- Конец оглавления шаблона 1 -->
+        <!-- Контейнер1 для правила наблона -->
+        <div class="container mb-2 Din-Тmontserrat-italic">
+            <div class="row">
+                <div class="col-md-1">
+                    <button class="btn btn-outline-danger rounded-3 p-2" type="button">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-outline-success rounded-3 p-2" type="button">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                </div>
+                <div class="col-md-10">
+                    <div class="STR1">Ошибка 5.8</div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row"> <!-- Основной flex-контейнер -->
+                <div class="STR2">
+                    <div class="col-md-12">
+                        <!-- Нередактируемый текст (замена input на div) -->
+                        <div class="form-control bg-light Тmontserrat-16-italic" style="height: auto; cursor: default;" readonly>
+                            В компьютерном классе нельзя распивать напитки за столом. Исправить 3.2. пункт, посмоттреть
+                            за кон о животных.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!--  Конец Контейнер1 для правила наблона -->
+        <!-- Контейнер2 для правила наблона -->
+        <!-- Контейнер1 для правила наблона -->
+        <div class="container mb-2 Din-Тmontserrat-italic">
+            <div class="row">
+                <div class="col-md-1">
+                    <button class="btn btn-outline-danger rounded-3 p-2" type="button">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-outline-success rounded-3 p-2" type="button">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                </div>
+                <div class="col-md-10">
+                    <div class="STR1">Ошибка Структуры докмуента</div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row"> <!-- Основной flex-контейнер -->
+                <div class="STR2">
+                    <div class="col-md-12">
+                        <!-- Нередактируемый текст (замена input на div) -->
+                        <div class="form-control bg-light Тmontserrat-16-italic" style="height: auto; cursor: default;" readonly>
+                            1. Структура документа
+                            Четкое разделение на блоки:
+
+                            Введение (цель, область применения)
+
+                            , Матрица компетенций (таблица с навыками/уровнями)
+
+                            , Инструкции по использованию
+
+                            , Глоссарий терминов
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!--  Конец Контейнер1 для правила наблона -->
+
+    </div>
+</div>
+<!-- Шаблон2 по матрице -->
+<!-- Шаблон2 по матрице -->
+<div class="document-frame Color-blockLLK2" style="display: none;" id="draggable-frame2">
+    <!-- Оглавление для первого шаблона -->
+    <div class="container mb-1 d-flex">
+        <div class="row  w-100 justify-content-center align-items-center"> <!-- Основной flex-контейнер -->
+            <div class="col-md-1">
+                <button class="btn btn-outline-danger rounded-3 p-2" type="button" id="KNOPKA_SKRST_SHABL2">
+                    <i class="bi bi-x-lg"></i> <!-- Иконка крестика -->
+                </button>
+            </div>
+            <div class="col-md-11">
+                <h4 class="Тmontserrat-25-italic">Шаблоны по матрице формирования компетенций</h4>
+            </div>
+        </div>
+    </div>
+    <!-- Шаблон продолжение  -->
+    <div class="container">
+        <div class="row"> <!-- Основной flex-контейнер -->
+            <!-- Кнопка закрыть -->
+
+            <!-- Поле поиска -->
+            <div class="col-md-11">
+                <input type="text" class="form-control Тmontserrat-16-italic" placeholder="Поиск шаблонов...">
+            </div>
+
+            <!-- Кнопка поиска -->
+            <div class="col-md-1">
+                <button class="btn btn-primary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-2 justify-content-start">
+            <div class="col-auto">
+                <!-- КНОПКА ДЛЯ СОХДАНИЯ ШАБЛОНА -->
+                <button id="createTemplateBtn2" class="btn btn-primary px-4 py-2 rounded-3 Тmontserrat-16-italic" type="button">
+                    <i class="bi bi-file-earmark-plus me-2"></i> Создать шаблон
+                </button>
+            </div>
+        </div>
+        <!-- ТУТ редактировать для создания шаблона! -->
+        <div class="row mt-2 justify-content-start HHGG2" style="display: none;">
+            <div class="Тmontserrat-16-italic">
+                Введите наименование шаблона
+                <p>
+                    <textarea 
+                      class="form-control Тmontserrat-16-italic" 
+                      placeholder="Введите наименование шаблона здесь..."
+                      rows="1"
+                      style="resize: none; border-radius: 8px; border: 1px solid #ced4da;"
+                    ></textarea>
+                  </p>
+                Введите текст шаблона
+                <p><textarea class="input-MSP form-control Тmontserrat-16-italic"  placeholder="Введите текст здесь..."
+                    rows="4"></textarea></p>
+                <button class="btn btn-primary px-4 py-2 rounded-3" type="button">
+                    <i class="bi bi-save me-2"></i> Сохранить шаблон
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- Конец оглавления шаблона 1 -->
+    <!-- Контейнер1 для правила наблона -->
+    <div class="container mb-2 Din-Тmontserrat-italic">
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-outline-danger rounded-3 p-2" type="button">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-outline-success rounded-3 p-2" type="button">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+            </div>
+            <div class="col-md-10">
+                <div class="STR1">Ошибка 5.8</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row"> <!-- Основной flex-контейнер -->
+            <div class="STR2">
+                <div class="col-md-12">
+                    <!-- Нередактируемый текст (замена input на div) -->
+                    <div class="form-control bg-light Тmontserrat-16-italic" style="height: auto; cursor: default;" readonly>
+                        В компьютерном классе нельзя распивать напитки за столом. Исправить 3.2. пункт, посмоттреть за
+                        кон о животных.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <!--  Конец Контейнер1 для правила наблона -->
+    <!-- Контейнер2 для правила наблона -->
+    <div class="container mb-2 Din-Тmontserrat-italic">
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-outline-danger rounded-3 p-2" type="button">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-outline-success rounded-3 p-2" type="button">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+            </div>
+            <div class="col-md-10">
+                <div class="STR1">Ошибка Структуры докмуента</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row"> <!-- Основной flex-контейнер -->
+            <div class="STR2">
+                <div class="col-md-12">
+                    <!-- Нередактируемый текст (замена input на div) -->
+                    <div class="form-control bg-light Тmontserrat-16-italic" style="height: auto; cursor: default;" readonly>
+                        1. Структура документа
+                        Четкое разделение на блоки:
+
+                        Введение (цель, область применения)
+
+                        , Матрица компетенций (таблица с навыками/уровнями)
+
+                        , Инструкции по использованию
+
+                        , Глоссарий терминов
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <!--  Конец Контейнер1 для правила наблона -->
+</div>
+
+<!-- Шаблон3 по паспорту -->
+<div class="document-frame Color-block_NONE" style="display: none;" id="draggable-frame3">
+    <!-- Оглавление для первого шаблона -->
+    <div class="container mb-1 d-flex">
+        <div class="row  w-100 justify-content-center align-items-center"> <!-- Основной flex-контейнер -->
+            <div class="col-md-1">
+                <button class="btn btn-outline-danger rounded-3 p-2" type="button" id="KNOPKA_SKRST_SHABL3">
+                    <i class="bi bi-x-lg"></i> <!-- Иконка крестика -->
+                </button>
+            </div>
+            <div class="col-md-11">
+                <h4 class="Тmontserrat-25-italic">Шаблоны по паспорту компетенций</h4>
+            </div>
+        </div>
+    </div>
+    <!-- Шаблон продолжение  -->
+    <div class="container">
+        <div class="row"> <!-- Основной flex-контейнер -->
+            <!-- Кнопка закрыть -->
+
+            <!-- Поле поиска -->
+            <div class="col-md-11">
+                <input type="text" class="form-control Тmontserrat-16-italic" placeholder="Поиск шаблонов...">
+            </div>
+
+            <!-- Кнопка поиска -->
+            <div class="col-md-1">
+                <button class="btn btn-primary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-2 justify-content-start">
+            <div class="col-auto">
+                <!-- КНОПКА ДЛЯ СОХДАНИЯ ШАБЛОНА -->
+                <button id="createTemplateBtn3" class="btn btn-primary px-4 py-2 rounded-3 Тmontserrat-16-italic" type="button">
+                    <i class="bi bi-file-earmark-plus me-2 Тmontserrat-16-italic"></i> Создать шаблон
+                </button>
+            </div>
+        </div>
+        <!-- ТУТ редактировать для создания шаблона! -->
+        <div class="row mt-2 justify-content-start HHGG3" style="display: none;">
+            <div class="">
+                Введите наименование шаблона
+                <p>
+                    <textarea 
+                      class="form-control" 
+                      placeholder="Введите наименование шаблона здесь..."
+                      rows="1"
+                      style="resize: none; border-radius: 8px; border: 1px solid #ced4da;"
+                    ></textarea>
+                  </p>
+                Введите текст шаблона
+                <p><textarea class="input-MSP form-control" placeholder="Введите текст здесь..."
+                    rows="4"></textarea></p>
+                <button class="btn btn-primary px-4 py-2 rounded-3" type="button">
+                    <i class="bi bi-save me-2"></i> Сохранить шаблон
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- Конец оглавления шаблона 1 -->
+    <!-- Контейнер1 для правила наблона -->
+    <div class="scroll-shablon">
+    <div class="container mb-2 Din-Тmontserrat-italic">
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-outline-danger rounded-3 p-2" type="button">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-outline-success rounded-3 p-2" type="button">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+            </div>
+            <div class="col-md-10">
+                <div class="STR1">Ошибка 5.8</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row"> <!-- Основной flex-контейнер -->
+            <div class="STR2">
+                <div class="col-md-12">
+                    <!-- Нередактируемый текст (замена input на div) -->
+                    <div class="form-control bg-light Тmontserrat-16-italic" style="height: auto; cursor: default;" readonly>
+                        В компьютерном классе нельзя распивать напитки за столом. Исправить 3.2. пункт, посмоттреть за
+                        кон о животных.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <!--  Конец Контейнер1 для правила наблона -->
+    <!-- Контейнер2 для правила наблона -->
+    <div class="container mb-2 Din-Тmontserrat-italic">
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-outline-danger rounded-3 p-2" type="button">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-outline-success rounded-3 p-2" type="button">
+                    <i class="bi bi-check-lg"></i>
+                </button>
+            </div>
+            <div class="col-md-10">
+                <div class="STR1">Ошибка Структуры докмуента</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row"> <!-- Основной flex-контейнер -->
+            <div class="STR2">
+                <div class="col-md-12">
+                    <!-- Нередактируемый текст (замена input на div) -->
+                    <div class="form-control bg-light Тmontserrat-16-italic" style="height: auto; cursor: default;" readonly>
+                        1. Структура документа
+                        Четкое разделение на блоки:
+
+                        Введение (цель, область применения)
+
+                        , Матрица компетенций (таблица с навыками/уровнями)
+
+                        , Инструкции по использованию
+
+                        , Глоссарий терминов
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    </div>
+    <!--  Конец Контейнер1 для правила наблона -->
+</div>
+
+
+<!-- конец Шаблон3 по паспорту -->
+<!-- Bootstrap JS + Popper (для некоторых компонентов) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    //Расширение блока INPUT для написания текста
+    const textarea = document.querySelector('.input-MSP');
+
+    textarea.addEventListener('input', function () {
+        this.style.height = 'auto'; // Сбрасываем высоту
+        this.style.height = (this.scrollHeight) + 'px'; // Устанавливаем новую высоту
+    });
+
+    // Инициализация при загрузке (на случай если есть предзаполненный текст)
+    textarea.style.height = textarea.scrollHeight + 'px';
+
+    //Джавушка для раскрытия блока 1
+    document.getElementById('commentButton1').addEventListener('click', function () {
+        const block = document.getElementById('commentBlock1');
+        if (block.style.display === 'none' || block.style.display === '') {
+            block.style.display = 'block'; // Показываем блок
+        } else {
+            block.style.display = 'none'; // Скрываем блок (если нужно переключение)
+        }
+    });
+
+    //Джавушка для раскрытия блока 2
+    document.getElementById('commentButton2').addEventListener('click', function () {
+        const block = document.getElementById('commentBlock2');
+        if (block.style.display === 'none' || block.style.display === '') {
+            block.style.display = 'block'; // Показываем блок
+        } else {
+            block.style.display = 'none'; // Скрываем блок (если нужно переключение)
+        }
+    });
+
+    //Джавушка для раскрытия блока 3
+    document.getElementById('commentButton3').addEventListener('click', function () {
+        const block = document.getElementById('commentBlock3');
+        if (block.style.display === 'none' || block.style.display === '') {
+            block.style.display = 'block'; // Показываем блок
+        } else {
+            block.style.display = 'none'; // Скрываем блок (если нужно переключение)
+        }
+    });
+
+    //Для блока перетаскивания_Блок_1
+    const draggableFrame = document.getElementById('draggable-frame1');
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    // Начало перетаскивания
+    draggableFrame.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - draggableFrame.getBoundingClientRect().left;
+        offsetY = e.clientY - draggableFrame.getBoundingClientRect().top;
+        draggableFrame.style.cursor = 'grabbing';
+    });
+
+    // Перетаскивание
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+
+        draggableFrame.style.left = `${x}px`;
+        draggableFrame.style.top = `${y}px`;
+    });
+
+    // Конец перетаскивания
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        draggableFrame.style.cursor = 'move';
+    });
+
+
+    // КНОПКА ДЛЯ СКРЫТИЯ И РАСКРЫТИЯ СОЗДАНИЯ ШАБЛОНА1
+    document.addEventListener('DOMContentLoaded', function () {
+        // Находим кнопку по ID
+        const createTemplateBtn = document.getElementById('createTemplateBtn');
+
+        // Находим блок, который нужно раскрывать
+        const hiddenBlock = document.querySelector('.HHGG');
+
+        // Добавляем обработчик клика
+        createTemplateBtn.addEventListener('click', function () {
+            // Переключаем видимость блока
+            if (hiddenBlock.style.display === 'none' || !hiddenBlock.style.display) {
+                hiddenBlock.style.display = 'flex'; // или 'block'
+            } else {
+                hiddenBlock.style.display = 'none';
+            }
+        });
+    });
+
+    //РАСКРЫТИЕ КНОПКИ ПО АЙДИ ДЛЯ СХЕМЫ КОМПЕТЕНЦИЙ1
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('LLD1');
+        const block = document.getElementById('draggable-frame1');
+
+        button.addEventListener('click', function () {
+            if (block.style.display === 'none') {
+                block.style.display = 'block'; // или 'flex', в зависимости от вашей вёрстки
+            } else {
+                block.style.display = 'none';
+            }
+        });
+    });
+
+    //КНОПКА ЗАКРЫТИЯ ШАБЛОНА
+    document.addEventListener('DOMContentLoaded', function () {
+        const closeButton = document.getElementById('KNOPKA_SKRST_SHABL1');
+        const draggableFrame = document.getElementById('draggable-frame1');
+
+        closeButton.addEventListener('click', function () {
+            draggableFrame.style.display = 'none'; // Скрываем блок
+        });
+    });
+
+
+    // Перетаскивание для блока матрицы (Шаблон 2)
+    const draggableFrame2 = document.getElementById('draggable-frame2');
+    let isDragging2 = false;
+    let offsetX2, offsetY2;
+
+    draggableFrame2.addEventListener('mousedown', (e) => {
+        isDragging2 = true;
+        offsetX2 = e.clientX - draggableFrame2.getBoundingClientRect().left;
+        offsetY2 = e.clientY - draggableFrame2.getBoundingClientRect().top;
+        draggableFrame2.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging2) return;
+
+        const x = e.clientX - offsetX2;
+        const y = e.clientY - offsetY2;
+
+        draggableFrame2.style.left = `${x}px`;
+        draggableFrame2.style.top = `${y}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging2 = false;
+        draggableFrame2.style.cursor = 'move';
+    });
+
+    // Управление видимостью для Шаблона 2
+    document.addEventListener('DOMContentLoaded', function () {
+        // Кнопка открытия матрицы (должна быть в вашем HTML)
+        const buttonMatrix = document.getElementById('LLD2');
+        const blockMatrix = document.getElementById('draggable-frame2');
+
+        if (buttonMatrix && blockMatrix) {
+            buttonMatrix.addEventListener('click', function () {
+                blockMatrix.style.display = blockMatrix.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        // Кнопка закрытия матрицы
+        const closeButton2 = document.getElementById('KNOPKA_SKRST_SHABL2');
+
+        if (closeButton2 && blockMatrix) {
+            closeButton2.addEventListener('click', function () {
+                blockMatrix.style.display = 'none';
+            });
+        }
+    });
+
+    // РАСКРЫТИЕ БЛОКА 2 по матрице компетенций
+    document.addEventListener('DOMContentLoaded', function () {
+        // Находим кнопку по ID
+        const commentButton = document.getElementById('MMN2');
+
+        // Находим блок, который нужно раскрывать
+        const commentBlock = document.getElementById('draggable-frame2');
+
+        // Добавляем обработчик клика
+        commentButton.addEventListener('click', function () {
+            // Переключаем видимость блока
+            if (commentBlock.style.display === 'none') {
+                commentBlock.style.display = 'block'; // или 'flex' - в зависимости от вашей вёрстки
+            } else {
+                commentBlock.style.display = 'none';
+            }
+        });
+    });
+    // ДЛЯ ШАБЛОНА 2 АКТИВАЦИЯ КНОПКИ СОЗДАНИЯ ШАБЛЛОНА
+    document.addEventListener('DOMContentLoaded', function () {
+        // Находим элементы
+        const closeButton = document.getElementById('KNOPKA_SKRST_SHABL2');
+        const frameToHide = document.getElementById('draggable-frame2');
+
+        // Добавляем обработчик клика
+        closeButton.addEventListener('click', function () {
+            frameToHide.style.display = 'none';
+        });
+    });
+    //Открытие блока Див для создания шаблона
+    document.addEventListener('DOMContentLoaded', function () {
+        // Находим кнопку и блок
+        const createBtn = document.getElementById('createTemplateBtn2');
+        const templateBlock = document.querySelector('.HHGG2');
+
+        // Добавляем обработчик клика
+        createBtn.addEventListener('click', function () {
+            // Переключаем видимость блока
+            if (templateBlock.style.display === 'none') {
+                templateBlock.style.display = 'flex'; // Используем flex для соответствия классу justify-content-start
+            } else {
+                templateBlock.style.display = 'none';
+            }
+        });
+    });
+
+    //РАСКРЫТИЕ КНОПКИ ПО АЙДИ ДЛЯ паспорта КОМПЕТЕНЦИЙ1
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.getElementById('LLD3');
+        const block = document.getElementById('draggable-frame3');
+
+        button.addEventListener('click', function () {
+            if (block.style.display === 'none') {
+                block.style.display = 'block'; // или 'flex', в зависимости от вашей вёрстки
+            } else {
+                block.style.display = 'none';
+            }
+        });
+
+    });
+
+//Открытие шаблона 3 паспорта
+    document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('LLD3');
+    const frame = document.getElementById('draggable-frame3');
+    
+    btn.addEventListener('click', function() {
+        frame.classList.toggle('visible');
+    });
+    });
+
+
+    //Перетаскивание шаблона 3
+    //Для блока перетаскивания_Блок_1
+    const draggableFrame3 = document.getElementById('draggable-frame3');
+    let isDragging3 = false;
+    let offset3X, offset3Y;
+
+    // Начало перетаскивания
+    draggableFrame3.addEventListener('mousedown', (e) => {
+        isDragging3 = true;
+        offset3X = e.clientX - draggableFrame3.getBoundingClientRect().left;
+        offset3Y = e.clientY - draggableFrame3.getBoundingClientRect().top;
+        draggableFrame3.style.cursor = 'grabbing';
+    });
+
+    // Перетаскивание
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging3) return;
+
+        const x = e.clientX - offset3X;
+        const y = e.clientY - offset3Y;
+
+        draggableFrame3.style.left = `${x}px`;
+        draggableFrame3.style.top = `${y}px`;
+    });
+
+    // Конец перетаскивания
+    document.addEventListener('mouseup', () => {
+        isDragging3 = false;
+        draggableFrame3.style.cursor = 'move';
+    });
+//Красный крест у шаблона 3 паспорта
+document.addEventListener('DOMContentLoaded', function() {
+    // Находим кнопку и блок по их ID
+    const closeButton = document.getElementById('KNOPKA_SKRST_SHABL3');
+    const frameToHide = document.getElementById('draggable-frame3');
+    
+    // Проверяем, что элементы существуют
+    if (closeButton && frameToHide) {
+        // Добавляем обработчик клика
+        closeButton.addEventListener('click', function() {
+            // Скрываем блок
+            frameToHide.style.display = 'none';
+            
+            // Альтернативный вариант с классом:
+            // frameToHide.classList.add('hidden');
+        });
+    } else {
+        console.error('Не удалось найти один из элементов:',
+                     closeButton, frameToHide);
+    }
+});
+ //Показывает или скрывает кнопку. для создания шаблона
+ document.addEventListener('DOMContentLoaded', function () {
+        // Находим элементы
+        const closeButton = document.getElementById('KNOPKA_SKRST_SHABL3');
+        const frameToHide = document.getElementById('draggable-frame3');
+
+        // Добавляем обработчик клика
+        closeButton.addEventListener('click', function () {
+            frameToHide.style.display = 'none';
+        });
+    });
+    //Открытие блока Див для создания шаблона
+    document.addEventListener('DOMContentLoaded', function () {
+        // Находим кнопку и блок
+        const createBtn = document.getElementById('createTemplateBtn3');
+        const templateBlock = document.querySelector('.HHGG3');
+
+        // Добавляем обработчик клика
+        createBtn.addEventListener('click', function () {
+            // Переключаем видимость блока
+            if (templateBlock.style.display === 'none') {
+                templateBlock.style.display = 'flex'; // Используем flex для соответствия классу justify-content-start
+            } else {
+                templateBlock.style.display = 'none';
+            }
+        });
+    });
+
+
+
+
+</script>
+{% endblock %}

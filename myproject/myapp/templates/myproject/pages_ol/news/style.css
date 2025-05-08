@@ -1,0 +1,29 @@
+.Color-block {
+    background-color: #B7CBF4;  /* Голубой цвет */
+    margin: 5px;                /* Отступы 5% со всех сторон */
+    padding: 5px;
+          /* Шрифт */
+          font-family: "Times New Roman", Times, serif;  /* Основной шрифт */
+          font-size: 16px;             /* Размер текста */
+          line-height: 1.5;            /* Межстрочный интервал */
+  }
+
+  .transparent-btn {
+    background: transparent;
+    border: 1px solid #000; /* Чёрная рамка */
+    padding: 8px 16px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+  
+  .transparent-btn:hover {
+    background: rgba(0, 0, 0, 0.05); /* Лёгкий эффект при наведении */
+  }
+  
+  .buttons-container {
+    display: flex;
+    gap: 8px; /* Расстояние между кнопками */
+  }

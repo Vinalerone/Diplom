@@ -1,0 +1,241 @@
+.serif {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 18px; /* Размер шрифта 16 пикселей */
+    text-align: left;
+}
+
+.color_block {
+    background-color: #d5ebff; /* Желтый цвет */
+    border-radius: 10px; /* Закругленные углы */
+    /*width: 100%; /* Ширина блока */
+    padding: 10px; /* Внутренний отступ 10 пикселей со всех сторон */
+}
+
+
+.footer {
+    margin-top: auto; /* Прижимаем к низу */
+}
+
+.BLOCK2 {
+    display: flex; /* Включаем Flexbox */
+    flex-direction: row; /* Элементы располагаются горизонтально */
+    gap: 10px; /* Расстояние между элементами */
+    align-items: center; /* Выравниваем элементы по вертикали */
+}
+
+#vvod {
+    width: 100%; /* Растягиваем на всю ширину родительского контейнера */
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+#FILTR {
+    /*font-weight: bold; /* Делает текст жирным */
+    font-size: 25px;   /* Устанавливает размер шрифта 16px */
+}
+
+.KNOPKA{
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+    background: #ededed; /* Цвет фона */
+}
+
+.KNOPKA:hover {
+    background-color: #bfbfbf; /* Серый цвет фона при наведении */
+    border-color: #000000;     /* Чёрная рамка при наведении */
+}
+
+#start{
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.BLOCK23{
+    margin-top: 10px;       /* Верхний отступ 10 пикселей */
+}
+
+.BLOCK2 input,
+.BLOCK2 button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 40px; /* Фиксированная высота */
+}
+
+.shok{
+    height: 200px;          /* Высота 500 пикселей */
+    overflow-y: auto;       /* Вертикальный скролл, если контент превышает высоту */
+    /*border: 1px solid #000; /* Рамка для наглядности */
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ccc; /* Серая рамка только у таблицы */
+    border-collapse: collapse;
+    background-color: white;
+}
+
+thead {
+    background-color: #f0f0f0a7;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc; /* Серая рамка только у таблицы */
+}
+
+th {
+    padding: 8px;
+    text-align: left;
+    /* border: 1px solid #ccc;  */
+}
+
+.Block3 {
+    /* padding-top: 10px; */
+    margin-top: 10px !important;
+}
+
+/* .scroll-table-body {
+	overflow-x: auto;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #eee;
+} */
+
+.scroll-table table {
+	width:100%;
+	table-layout: fixed;
+	border: none;
+}
+
+/* Стили для скролла */
+::-webkit-scrollbar {
+	width: 6px;
+} 
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+
+#year{
+    width: 90px; /* Растягиваем на всю ширину родительского контейнера */
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.BLOCK4 {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    /* gap: 10px; Убираем это свойство */
+}
+
+/* Добавляем отступы только для нужных элементов */
+.BLOCK4 > *:not(:last-child) {
+    margin-right: 10px; /* Отступ справа для всех элементов, кроме последнего */
+}
+
+.BLOCK4 input,
+.BLOCK4 select,
+.BLOCK4 button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 40px; /* Фиксированная высота */
+}
+
+.Block33 {
+    margin-top: 20px !important;
+}
+
+/* ТУТ СТИЛИ ДЛЯ ТАБЛИЦЫ ._. */
+
+.red {
+    color: rgb(200, 0, 0); /* Красный цвет */
+    font-weight: bold; /* Жирный текст */
+}
+
+.yellow {
+    color: rgb(203, 133, 1); /* Жёлтый цвет */
+    font-weight: bold; /* Жирный текст */
+}
+
+.green {
+    color: rgb(0, 89, 0); /* Зелёный цвет */
+    font-weight: bold; /* Жирный текст */
+}
+
+.vniz {
+    height: 29vh; /* Высота контейнера равна высоте окна браузера */
+    /*flex-grow: 1; /* Занимает всё оставшееся пространство */
+    overflow-y: auto; /* Вертикальный скролл */
+}
+
+/* Стиль для строки таблицы при наведении */
+.vniz tr:hover {
+    background-color: #f0f0f0; /* Цвет фона при наведении */
+    cursor: pointer; /* Курсор в виде указателя */
+}
+
+.status-cell {
+    text-transform: lowercase; /* Сначала переводим весь текст в нижний регистр */
+}
+
+.status-cell::first-letter {
+    text-transform: uppercase; /* Затем первую букву делаем заглавной */
+}
+
+
+/* Из тюрьмы потом освободить
+.sokr {
+    display: flex;
+    gap: 10px;
+    width: 700px; /* Фиксированная ширина */
+    /* flex: none; Отключаем растягивание */
+/* } */
+
+
+.cont {
+    display: flex;          /* Включаем Flexbox */
+    gap: 10px;             /* Расстояние между блоками */
+}
+
+.scrollR {
+  display: block;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+
+.sokr {
+    width: 100%;
+    transition: width 0.3s ease;
+  }
+  
+
+
+#block-2 {
+    width: 120%;
+  }
+
+
+  td.min-width {
+    min-width: 200px !important;
+  }

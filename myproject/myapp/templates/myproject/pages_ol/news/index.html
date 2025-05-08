@@ -1,0 +1,288 @@
+{% extends "myproject/pages_ol/index.html" %}
+
+{% block title %}Объявления | ОЛ{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Подключаем Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    /* Дополнительные стили для иконок */
+    .btn i {
+        font-size: 1rem;
+        line-height: 1;
+        vertical-align: middle;
+    }
+</style>
+
+<Div class="Color-block">
+    <!-- Блок для поиска -->
+    <div class="container-fluid p-2"> <!-- Улучшенный контейнер -->
+        <div class="row g-2 align-items-end flex-nowrap"> <!-- Убраны лишние отступы, добавлены gutter -->
+            <!-- Кнопка даты -->
+            <div class="col-sm-4 col-md-3 col-lg-2"> <!-- Адаптивные колонки -->
+                <label for="start" class="form-label mb-1 Тmontserrat-18-italic ">Дата от:</label>
+                <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2030-12-31"
+                    class="form-control Тmontserrat-16-italic">
+            </div>
+
+            <!-- Поле поиска -->
+            <div class="col-sm-6 col-md-7 col-lg-8">
+                <label class="form-label mb-1 Тmontserrat-18-italic ">Новость</label>
+                <input type="text" class="form-control Тmontserrat-16-italic" placeholder="Поиск шаблонов...">
+            </div>
+
+            <!-- Кнопка поиска -->
+            <div class="col-sm-2 col-md-2 col-lg-1 d-flex align-items-end">
+                <button class="btn btn-primary w-100" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+
+    <!-- Блок для создания новости -->
+    <div class="container-fluid p-1 mt-0">
+        <div class="row mt-0 justify-content-start">
+            <div class="col-auto">
+                <!-- КНОПКА ДЛЯ СОХДАНИЯ ШАБЛОНА -->
+                <button id="createNewsBtn" class="btn btn-primary px-4 py-2 rounded-3 Тmontserrat-16-italic"
+                    type="button">
+                    <i class="bi bi-file-earmark-plus me-2 "></i> Создать новость
+                </button>
+            </div>
+        </div>
+        <!-- ТУТ редактировать для создания шаблона! -->
+        <div id="newsBlock" class="row mt-2 justify-content-start HHGG" style="display: none;">
+            <div class="Тmontserrat-16-italic">
+                Введите текст новости
+                <form id="newsForm">
+                    {% csrf_token %}
+                    <p><textarea id="newsContent" class="input-MSP form-control" placeholder="Введите текст здесь..."
+                            rows="4" required></textarea></p>
+                    <button class="btn btn-primary px-4 py-2 rounded-3 Тmontserrat-16-italic" type="submit">
+                        <i class="bi bi-save me-2"></i> Сохранить новость
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Обработчик Джавы для сохранения новости -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+
+                // Отправка формы
+                document.getElementById('newsForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const content = document.getElementById('newsContent').value;
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                    if (!content.trim()) {
+                        alert('Текст новости не может быть пустым!');
+                        return;
+                    }
+
+                    fetch('{% url "save_news" %}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        body: JSON.stringify({ content: content })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Новость успешно сохранена!');
+                                document.getElementById('newsContent').value = '';
+                                document.getElementById('newsBlock').style.display = 'none';
+                            } else {
+                                alert('Ошибка: ' + data.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Ошибка соединения с сервером');
+                        });
+                });
+            });
+        </script>
+
+    </div>
+
+    <!-- Для появления блоков при нажатии на создать новость -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const createBtn = document.getElementById('createNewsBtn');
+            const newsBlock = document.getElementById('newsBlock');
+
+            createBtn.addEventListener('click', function () {
+                // Переключаем видимость блока
+                if (newsBlock.style.display === 'none') {
+                    newsBlock.style.display = 'flex'; // Или 'block' в зависимости от ваших needs
+                } else {
+                    newsBlock.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
+
+    <hr>
+    <!-- Блок для просмотра новостей -->
+    <div class="container-fluid p-2">
+        <!-- Первый блок для БД - просмотра новостей -->
+
+        <!-- {% for news in news_list %}
+        <p>{{ news.content }}</p>
+        {% empty %}
+        <p>Новостей нет! (DEBUG)</p>
+        {% endfor %} -->
+
+
+        <div class="row g-2 align-items-center">
+            <!-- Блок с датой и кнопками -->
+            {% for news in news_list %}
+            <div class="col-12 d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted Тmontserrat-18-italic">
+                    {{ news.created_at}}
+                </span>
+                <div class="d-flex gap-2">
+                    <!-- Кнопка редактирования -->
+                    <a href="{% url 'edit_news' news.pk %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-edit"></i>
+                        <span class="visually-hidden">Редактировать</span>
+                    </a>
+
+                    <!-- Кнопка удаления -->
+                    <form action="{% url 'delete_news' news.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger btn-sm"
+                        onclick="return confirm('Вы уверены, что хотите удалить эту новость?');">
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="visually-hidden">Удалить</span>
+                </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Текстовое поле -->
+            <div class="col-12">
+                <div class="form-control bg-light Тmontserrat-16-italic" style="
+                        min-height: 150px;
+                        border-radius: 0.5rem;
+                        padding: 1rem;
+                        white-space: pre-line;
+                        cursor: default;">
+                    {{ news.content }}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- Сообщения системы -->
+        {% if messages %}
+        <div class="messages-container mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <div class="d-flex align-items-center">
+                    {% if message.tags == 'success' %}
+                    <i class="fas fa-check-circle me-2"></i>
+                    {% elif message.tags == 'error' %}
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    {% endif %}
+                    <span>{{ message }}</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- Конец для блока просмотра новостей -->
+        <!-- <div class="row g-2 align-items-center"> -->
+        <!-- Блок с датой и кнопками -->
+        <!-- <div class="col-12 d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted Тmontserrat-18-italic">27.03.22</span>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary" style="width: 40px; height: 40px;">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" style="width: 40px; height: 40px;">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div> -->
+
+        <!-- Текстовое поле -->
+        <!-- <div class="col-12">
+                <div class="form-control bg-light Тmontserrat-16-italic" 
+                     style="
+                        min-height: 150px;
+                        border-radius: 0.5rem;
+                        padding: 1rem;
+                        white-space: pre-line;
+                        cursor: default;
+                     ">В связи с актуализацией федеральных образовательных стандартов и требований работодателей внесены изменения в матрицу формирования компетенций для образовательных программ:
+                    
+                    Замена кода компетенции:
+                    УПК-32 → УПК-54
+                    («Способность применять современные методы разработки ПО» → «Проектирование и внедрение цифровых решений с учетом ESG-принципов»)
+                </div>
+            </div>
+            </div>
+            <div class="row g-2 align-items-center mt-2"> -->
+        <!-- Блок с датой и кнопками -->
+        <!-- <div class="col-12 d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted Тmontserrat-18-italic">27.03.22</span>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary" style="width: 40px; height: 40px;">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" style="width: 40px; height: 40px;">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div> -->
+
+        <!-- Текстовое поле -->
+        <!-- <div class="col-12">
+                <div class="form-control bg-light Тmontserrat-16-italic" 
+                     style="
+                        min-height: 150px;
+                        border-radius: 0.5rem;
+                        padding: 1rem;
+                        white-space: pre-line;
+                        cursor: default;
+                     ">В связи с актуализацией федеральных образовательных стандартов и требований работодателей внесены изменения в матрицу формирования компетенций для образовательных программ:
+                    
+                    Замена кода компетенции:
+                    УПК-32 → УПК-54
+                    («Способность применять современные методы разработки ПО» → «Проектирование и внедрение цифровых решений с учетом ESG-принципов»)
+                </div>
+            </div> -->
+    </div>
+</div>
+
+<!-- Подключение Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</Div>
+
+<!-- <script>
+    // Автоподстройка высоты
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.querySelector('textarea');
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+    });
+    </script> -->
+<!-- Ваш уникальный контент здесь -->
+{% endblock %}

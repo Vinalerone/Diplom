@@ -1,0 +1,155 @@
+.Color-block {
+    background-color: #f6f9fe;  /* Голубой цвет */
+    margin: 5px;                /* Отступы 5% со всех сторон */
+    padding: 5px;
+          /* Шрифт */
+          font-family: "Times New Roman", Times, serif;  /* Основной шрифт */
+          font-size: 16px;             /* Размер текста */
+          line-height: 1.5;            /* Межстрочный интервал */
+  }
+
+  .transparent-btn {
+    background: transparent;
+    border: 1px solid #000; /* Чёрная рамка */
+    padding: 8px 16px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+  
+  .transparent-btn:hover {
+    background: rgba(0, 0, 0, 0.05); /* Лёгкий эффект при наведении */
+  }
+  
+  .buttons-container {
+    display: flex;
+    gap: 8px; /* Расстояние между кнопками */
+  }
+
+  .bold-text {
+    font-size: 28px !important;
+    font-weight: bold;
+  }
+
+  .ggs{
+    padding: 7px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.gg {
+    width: 200px; /* Растягиваем на всю ширину родительского контейнера */
+    padding: 7px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+}
+/* Последний ввод текст */
+
+.input-container {
+    display: inline-block;
+    position: relative;
+    min-width: 200px;
+}
+
+.auto-resize-input {
+    min-width: 200px;
+    width: auto;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.hidden-measurer {
+    position: absolute;
+    visibility: hidden;
+    white-space: pre;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+/* Тут конец ввода в текст */
+.ggr {
+    width: 200px; /* Растягиваем на всю ширину родительского контейнера */
+    padding: 9px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    border: 1px solid #ccc; /* Граница для наглядности */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+/* ДЛЯ ТАБЛИЦЫ */
+
+.Block33 {
+    margin-top: 20px !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+thead {
+    background-color: #f0f0f0a7;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc; /* Серая рамка только у таблицы */
+}
+
+th {
+    padding: 8px;
+    text-align: left;
+    /* border: 1px solid #ccc;  */
+}
+
+.scroll-table table {
+	width:100%;
+	table-layout: fixed;
+	border: none;
+}
+
+/* Стили для скролла */
+::-webkit-scrollbar {
+	width: 6px;
+} 
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+
+
+/* Добавляем отступы только для нужных элементов */
+.BLOCK4 > *:not(:last-child) {
+    margin-right: 10px; /* Отступ справа для всех элементов, кроме последнего */
+}
+
+.vniz {
+    height: 70vh; /* Высота контейнера равна высоте окна браузера */
+    /*flex-grow: 1; /* Занимает всё оставшееся пространство */
+    overflow-y: auto; /* Вертикальный скролл */
+}
+
+/* Стиль для строки таблицы при наведении */
+.vniz tr:hover {
+    background-color: #f0f0f0; /* Цвет фона при наведении */
+    cursor: pointer; /* Курсор в виде указателя */
+}
+
+.status-cell {
+    text-transform: lowercase; /* Сначала переводим весь текст в нижний регистр */
+}
+
+.status-cell::first-letter {
+    text-transform: uppercase; /* Затем первую букву делаем заглавной */
+}

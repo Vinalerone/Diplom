@@ -1,0 +1,210 @@
+{% extends "myproject/pages_ol/index.html" %}
+
+{% block title %}Меню | ОЛ{% endblock %}
+
+{% block content %}
+    <!-- Этот блок редактировать, тут фильтры и таблица -->
+    <Div class="Color-block">
+        <Div>
+            <div class="d-flex gap-3 align-items-end flex-wrap">
+                <div class="bold-text">Фильтр</div>
+                <button class="btn btn-outline-secondary Тmontserrat-20-italic">Применить</button>
+                <!-- Для даты штука -->
+                <div class="d-flex flex-column">
+                    <label for="start" class="Тmontserrat-20-italic">Дата от:</label>
+                    <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2030-12-31"
+                        class="ggs Тmontserrat-20-italic" />
+                </div>
+                <!-- Для даты штука -->
+                <div class="d-flex flex-column">
+                    <label for="start" class="Тmontserrat-20-italic">Дата до:</label>
+                    <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2030-12-31"
+                        class="ggs Тmontserrat-20-italic" />
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="start" class="Тmontserrat-20-italic">Нименование аббревиатуры</label>
+                    <input id="vvod" type="text" placeholder="Введите текст" class="gg Тmontserrat-20-italic">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="start" class="Тmontserrat-20-italic">Шифр</label>
+                    <input id="vvod" type="text" placeholder="Введите текст" class="gg Тmontserrat-20-italic">
+                </div>
+                <!-- Год набора -->
+                <!-- Год набора (select) -->
+                <div class="d-flex flex-column">
+                    <label for="year" class="Тmontserrat-20-italic">Год набора</label>
+                    <select id="year" class="ggr Тmontserrat-20-italic">
+                        <option value="" disabled selected>Выберите год</option>
+                        <!-- Генерируем годы от 2025 до 2010 -->
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                    </select>
+                </div>
+                <!-- Статус для экспертизы     -->
+                <!-- Статус экспертизы (select) -->
+                <div class="d-flex flex-column">
+                    <label for="status" class="Тmontserrat-20-italic">Статус экспертизы</label>
+                    <select id="status" class="ggr Тmontserrat-20-italic">
+                        <option value="" disabled selected>Выберите статус</option>
+                        <option value="passed">Сдан</option>
+                        <option value="not_passed">Не_сдан</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label for="svvod" class="Тmontserrat-20-italic">Наименование ОП</label>
+                    <div class="input-container Тmontserrat-20-italic" >
+                        <input
+                            type="text"
+                            id="svvod"
+                            placeholder="Введите текст"
+                            class="auto-resize-input Тmontserrat-20-italic"
+                        >
+                        <span id="smeasurer" class="hidden-measurer"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Для перехода по таблице -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Находим все строки с классом clickable-row
+                const rows = document.querySelectorAll('.clickable-row');
+                
+                // Добавляем обработчик клика для каждой строки
+                rows.forEach(row => {
+                    row.addEventListener('click', function() {
+                        // Получаем значение data-target атрибута
+                        const target = this.getAttribute('data-target');
+                        
+                        // Формируем URL с параметром
+                        const url = `http://127.0.0.1:8000/programs/pages_ol/analiz/?block=${target}`;
+                        
+                        // Переходим по ссылке
+                        window.location.href = url;
+                    });
+                });
+            });
+        </script>
+
+                <!-- Таблица -->
+                <div class="Block33">
+                    <!-- ТАБЛИЦА -->
+                    <table>
+                        <colgroup>
+                            <col style="width: 43%;"> <!-- 1 часть -->
+                            <col style="width: 150px;"> <!-- 5 частей -->
+                            <col style="width: 36%;"> <!-- 1 часть -->
+                            <col style="width: 17%;"> <!-- 1 часть -->
+                        </colgroup>
+                      <thead class="Тmontserrat-18-italic ">
+                          <tr>
+                              <th class="col">Год, шифр, наименование ОП, аббревиатура</th>
+                              <th class="col">ФИО РОПа</th>
+                              <th class="col">Тип документа, дата добалвения РОПом</th>
+                              <th class="col">Статус экспертизы</th>
+                          </tr>
+                      </thead>
+                      </table>
+                      <div class="vniz scroll-table-body">
+                      <table id="myTable">
+                        <colgroup>
+                            <col style="width: 43%;"> <!-- 1 часть -->
+                            <col style="width: 150px;"> <!-- 5 частей -->
+                            <col style="width: 36%;"> <!-- 1 часть -->
+                            <col style="width: 17%;"> <!-- 1 часть -->
+                        </colgroup>
+                          <tbody class="Тmontserrat-16-italic ">
+                            <tr class="clickable-row" data-target="block-2">
+                                <td>2025 <br> 09.03.02 Информационные системы и технологии </td>
+                                <td>Иванов Иван Иванович</td>
+                                <td class="status-cell">
+                                  Паспорт - 12.02.2022 - отсутствует <br>
+                                  Схема - 12.02.2022 - отсутствует <br>
+                                  Матрица - 12.02.2022 - отсутствует
+                                </td>
+                                <td class="status-cell">не_сдан</td>
+                            </tr>
+                          <tr class="clickable-row" data-target="block-2">
+                              <td>2025 <br> 09.05.08 Цифровая трасформация в управлении бизнесом ЦТВБ </td>
+                              <td>Иванов Иван Иванович</td>
+                              <td class="status-cell">
+                                Паспорт - 12.02.2022 - принят <br>
+                                Схема - 12.02.2022 - отсутствует <br>
+                                Матрица - 12.02.2022 - на доработке
+                              </td>
+                              <td class="status-cell">не_сдан</td>
+                          </tr>
+                          <tr class="clickable-row" data-target="block-2">
+                            <td>2024 <br> 09.05.08 Цифровая трасформация в управлении бизнесом ЦТВБ </td>
+                            <td>Иванов Иван Иванович</td>
+                            <td class="status-cell">
+                              Паспорт - 12.02.2022 - принят <br>
+                              Схема - 12.02.2022 - принят <br>
+                              Матрица - 12.02.2022 - принят
+                            </td>
+                            <td class="status-cell">сдан</td>
+                        </tr>
+                        <tr class="clickable-row" data-target="block-2">
+                            <td>2024 <br> 09.05.06 Высшая математика ВМ </td>
+                            <td>Иванов Иван Иванович</td>
+                            <td class="status-cell">
+                              Паспорт - 12.02.2022 - принят <br>
+                              Схема - 12.02.2022 - принят <br>
+                              Матрица - 12.02.2022 - принят
+                            </td>
+                            <td class="status-cell">сдан</td>
+                        </tr>
+                    </tr>
+                    <tr class="clickable-row" data-target="block-2">
+                        <td>2023 <br> 09.05.06 Высшая математика ВМ </td>
+                        <td>Иванов Иван Иванович</td>
+                        <td class="status-cell">
+                          Паспорт - 12.02.2022 - принят <br>
+                          Схема - 12.02.2022 - принят <br>
+                          Матрица - 12.02.2022 - принят
+                        </td>
+                        <td class="status-cell">сдан</td>
+                    </tr>
+                    <tr class="clickable-row" data-target="block-2">
+                        <td>2022 <br> 09.05.06 Высшая математика ВМ </td>
+                        <td>Иванов Иван Иванович</td>
+                        <td class="status-cell">
+                          Паспорт - 12.02.2022 - принят <br>
+                          Схема - 12.02.2022 - принят <br>
+                          Матрица - 12.02.2022 - принят
+                        </td>
+                        <td class="status-cell">сдан</td>
+                    </tr>
+                    <tr class="clickable-row" data-target="block-2">
+                        <td>2021 <br> 09.05.06 Высшая математика ВМ </td>
+                        <td>Иванов Иван Иванович</td>
+                        <td class="status-cell">
+                          Паспорт - 12.02.2022 - принят <br>
+                          Схема - 12.02.2022 - принят <br>
+                          Матрица - 12.02.2022 - принят
+                        </td>
+                        <td class="status-cell">сдан</td>
+                    </tr>
+                      </tbody>
+                      </div>
+                      </table>
+                  </div>
+    </Div>
+{% endblock %}

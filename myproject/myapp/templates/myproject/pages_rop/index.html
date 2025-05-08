@@ -1,0 +1,602 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница РОПа</title>
+    <!-- Подключаем Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Специфичные стили для ROP -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<style>
+
+  /* font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap; */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Основной стиль с размером 30px */
+.montserrat-40 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-style: normal; 
+    /* font-weight: 400; Обычное начертание */
+    line-height: 1.3; /* Межстрочный интервал */
+}
+
+
+/* Варианты для разных начертаний */
+.montserrat-30-bold {
+    font-style: normal; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 700; /* Жирное начертание */
+}
+
+.montserrat-35-italic {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 35px !important; 
+    font-style: italic; /* Курсив */
+    font-weight: 400;
+    font-style: normal; 
+}
+
+.Тmontserrat-20-italic {
+    text-align: left; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px !important; 
+    font-style: italic; /* Курсив */
+    font-weight: 400;
+    font-style: normal; 
+    padding-left: 6px !important; 
+}
+
+.Тmontserrat-18-italic {
+    text-align: left; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px !important; 
+    font-style: italic; /* Курсив */
+    font-weight: 400;
+    font-style: normal; 
+    padding-left: 6px !important; 
+}
+
+.Тmontserrat-16-italic {
+    text-align: left; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px !important; 
+    font-style: italic; /* Курсив */
+    font-weight: 400;
+    font-style: normal; 
+    padding-left: 6px !important; 
+}
+
+.Lmontserrat-30-italic {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px !important;
+    font-weight: 400;
+    font-style: normal; 
+}
+
+.MLmontserrat-30-italic {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px !important;
+    font-weight: 400;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Занимает всю высоту родителя */
+}
+.montserrat-30-bold-italic {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-style: italic;
+    font-style: normal; 
+    font-weight: 700; /* Жирный курсив */
+}
+/* Стили для ввода */
+/* Стиль для самого input */
+.vvod {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px; /* Настройте по необходимости */
+}
+
+/* Стиль для плейсхолдера */
+.vvod::placeholder {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #999; /* Цвет плейсхолдера */
+    opacity: 1; /* Фикс для Firefox */
+    font-size: 20px;
+}
+    /* Основные стили для таблицы */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* Фиксированная ширина колонок */
+    }
+    
+    /* Стили для заголовков и ячеек */
+     td {
+        padding: 8px 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+        /* overflow: hidden; */
+        /* text-overflow: ellipsis;
+        white-space: nowrap; */
+    }
+    
+    /* Стиль для прокручиваемой части таблицы */
+    .scroll-table-body {
+        overflow-y: auto;
+        max-height: 500px; /* Или нужная вам высота */
+    }
+    
+    /* Стиль для строк при наведении */
+    .clickable-row:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+
+    .scroll-table-body {
+    height: 2000px !important;
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+}
+
+.Nscroll-table-body {
+    height: 800px !important;
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    max-height: 800px !important;
+} 
+
+.scrollR {
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+</style>
+
+<body>
+    <div class="cont">
+        <div class="sokr">
+            <center>
+                <div class="serif" class="d-flex flex-column mx-auto" style="width: 98%;">
+                    <!--Расположение элементов сверху вниз -->
+                    <!-- Описнаие заголовка -->
+                    <div style="text-align: left;">
+                        <h2 class="montserrat-40"><b> Главная страница </b></h2>
+                    </div>
+                    <!-- Блок для объявлений -->
+                    <div class="color_block">
+                        <div style="text-align: left;">
+                            <h2 class="montserrat-35-italic">
+                                 Объявления </h2>
+                        </div>
+                        <div class="BLOCK2">
+                            <div id="FILTR" class="footer Lmontserrat-30-italic">Фильтр</div>
+                            <div class="footer">
+                                <button class="KNOPKA MLmontserrat-30-italic">
+                                    <!-- <i class="fas fa-check"></i>  -->
+                                    Применить</button></div>
+                            <div class="d-flex flex-column">
+                                <label for="start" class="Тmontserrat-20-italic">Дата от:</label>
+                                <input type="date" id="start" name="trip-start" value="2018-07-22" 
+                                class="Тmontserrat-20-italic "
+                                min="2018-01-01" max="2018-12-31" />
+                            </div>
+                            <div class="d-flex flex-column" style="flex-grow: 1;">
+                                <label for="start" class="Тmontserrat-20-italic">Объявление</label>
+                                <input class="vvod" type="text" class="Тmontserrat-20-italic" placeholder="Введите текст">
+                            </div>
+                        </div>
+                        <!-- ТАблица -->
+                        <div class="BLOCK23 scroll-table">
+                            <table>
+                                <colgroup>
+                                    <col style="width: 100px;"> <!-- 1 часть -->
+                                    <col style="width: 100%;"> <!-- 5 частей -->
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="col Тmontserrat-18-italic" style="font-weight: bold;">Дата</th>
+                                        <th class="col Тmontserrat-18-italic" style="font-weight: bold;">Объявление</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="shok scroll-table-body">
+                                <table>
+                                    <colgroup>
+                                        <col style="width: 100px;"> <!-- 1 часть -->
+                                        <col style="width: 100%;"> <!-- 5 частей -->
+                                    </colgroup>
+                                    <tbody>
+                                        {% for news in news_list %}
+                                        <tr>
+                                            <td class="Тmontserrat-18-italic">Ghbwtgb{{ news.created_at|date:"d.m.Y" }}</td>
+                                            <td>{{ news.content }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <!-- <td colspan="2">Новостей пока нет</td> -->
+                                        </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">12.03.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 4. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. Сообщаем о внесении
+                                                изменений в требования к лицензированию по ОПК 4. С 01.12.2023 вступают
+                                                в силу новые нормативные акты, касающиеся отчетности и контроля за
+                                                соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="Тmontserrat-16-italic">25.02.2024</td>
+                                            <td class="Тmontserrat-16-italic">Сообщаем о внесении изменений в требования к лицензированию по ОПК 5. С
+                                                01.12.2023 вступают в силу новые нормативные акты, касающиеся отчетности
+                                                и контроля за соблюдением лицензионных условий. </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="color_block Block3">
+                        <div>
+                            <div style="text-align: left;">
+                                <h2 class="montserrat-35-italic"> Мои ООП </h2>
+                            </div>
+                            <div class="BLOCK4">
+                                <div id="FILTR" class="footer Lmontserrat-30-italic">Фильтр</div>
+                                <div class="footer"><button class="KNOPKA MLmontserrat-30-italic">Применить</button></div>
+                                <div class="d-flex flex-column">
+                                    <label for="year" class="Тmontserrat-20-italic">Год набора</label>
+                                    <select id="year" name="year" style="width: 150px; font-size: 17px !important;" class="Тmontserrat-20-italic">
+                                        <option value="2025">2025</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-3" style="align-self: end;">
+                                    <label for="code" class="Тmontserrat-20-italic">Шифр</label>
+                                    <input id="code" type="text" placeholder="Введите текст" class="Тmontserrat-20-italic">
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1" style="align-self: end;">
+                                    <label for="name" class="Тmontserrat-20-italic">Наименование</label>
+                                    <input id="name" type="text" placeholder="Введите текст">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="Block33">
+                            <!-- ТАБЛИЦА -->
+                            <table>
+                                <colgroup>
+                                    <col style="width: 90px;"> <!-- 1 часть -->
+                                    <col style="width: 40%;"> <!-- 5 частей -->
+                                    <col style="width: 250px;"> <!-- 1 часть -->
+                                    <col style="width: 100px;"> <!-- 1 часть -->
+                                </colgroup>
+                                <thead class="Тmontserrat-18-italic">
+                                    <tr>
+                                        <th class="col">Год набора</th>
+                                        <th class="col">Шифр и наименование</th>
+                                        <th class="col">Файлы и их статус</th>
+                                        <th class="col">Статус ОП</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="vniz scroll-table-body">
+                                <table id="myTable">
+                                    <colgroup>
+                                        <col style="width: 90px;"> <!-- 1 часть -->
+                                        <col style="width: 40%;"> <!-- 5 частей -->
+                                        <col style="width: 250px;"> <!-- 1 часть -->
+                                        <col style="width: 100px;"> <!-- 1 часть -->
+                                    </colgroup>
+                                    <tbody class="Тmontserrat-18-italic">
+                                        <tr class="clickable-row" data-target="block-2">
+                                            <td>2025</td>
+                                            <td>09. 03.02 - Информационные системы и технологии. </td>
+
+                                            <td class="status-cell">паспорт - принят <br>
+                                                Схема - на доработке<br>Матрица - отсутствует </td>
+                                            <td class="status-cell"> Не_сдана</td>
+                                        </tr>
+                                        <tr class="clickable-row" data-target="block-3">
+                                            <td>2024</td>
+                                            <td>09. 03.02 - Информационные системы и технологии. </td>
+
+                                            <td class="status-cell">паспорт - отсутствует <br>
+                                                Схема - принята<br>Матрица - принята </td>
+                                            <td class="status-cell"> Не_сдана</td>
+                                        </tr>
+
+
+                                        <!-- ПОДКЛЮЧАЕМ БД -->
+                                        {% for program in programs %}
+                                        <tr class="clickable-row" data-target="block-2">
+                                            <td>{{ program.enrollment_year }}</td>
+                                            <td>{{ program.specialty_code }} - {{ program.name|default:"Нет названия" }}
+                                            </td>
+                                            <td class="status-cell">
+                                                паспорт - {{ program.passports.first.get_assessment_display|default:"принят" }}<br>
+                                                Схема - {{ program.schemes.first.status|default:"на доработке" }}<br>
+                                                Матрица - {{ program.matrices.first.get_assessment_display|default:"отсутствует" }}
+                                            </td>
+                                            <td class="status-cell">{{ program.get_status_display }}</td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <!-- ИНАЧЕ ВЫВОДИТ ЭТУ ШТУКУ -->
+                                            <td colspan="4">Нет доступных программ</td>
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- КОНЕЦ ПОДКЛЮЧЕНИЯ К БД -->
+
+
+                                        <tr class="clickable-row" data-target="block-2">
+                                            <td>2025</td>
+                                            <td>09. 03.02 - Информационные системы и технологии. </td>
+
+                                            <td class="status-cell">паспорт - Отсутствует <br>
+                                                Схема - Отсутствует<br>Матрица - на доработке </td>
+                                            <td class="status-cell"> Не_сдана</td>
+                                        </tr>
+                                        <tr class="clickable-row" data-target="block-3">
+                                            <td>2024</td>
+                                            <td>09. 03.02 - Информационные системы и технологии. </td>
+
+                                            <td class="status-cell">паспорт - отсутствует <br>
+                                                Схема - принята<br>Матрица - принята </td>
+                                            <td class="status-cell"> Не_сдана</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2023</td>
+                                            <td>09. 03.02 - Информационные системы и технологии. </td>
+
+                                            <td class="status-cell">паспорт - принят <br>
+                                                Схема - принята<br>Матрица - принята </td>
+                                            <td class="status-cell"> сдана</td>
+                                        </tr>
+                                    </tbody>
+                            </div>
+                            </table>
+                        </div>
+            </center>
+        </div>
+
+        <!-- БЛОК ДЛЯ ОП -->
+
+        <div id="block-2" class=" " style="display: none;">
+            <!-- #Тут начало -->
+            <div class="serif" class="d-flex flex-column mx-auto" style="width: 98%;">
+                <!--Расположение элементов сверху вниз -->
+                <!-- Описнаие заголовка -->
+                <div style="text-align: left;">
+                    <h3><b>
+                            <div class="badge text-bg-info montserrat-40" id="toggleButton" 
+                            style="font-size: 25px !important;">Главная страница/</div>
+                            <div id="toggleButtonN" class="Zag2-1 montserrat-35-italic"> 09. 03.02 - 2025 -Информационные системы и
+                                технологии ИСиТ</div>
+                        </b></h2>
+                </div>
+                <!-- Блок для объявлений -->
+                <div class="color_block">
+                    <div style="text-align: left;">
+
+                        <!-- ТАблица -->
+                        <div class="">
+                            <table class="Тmontserrat-18-italic">
+                                <colgroup>
+                                    <col style="width: 100px;"> <!-- 1 часть -->
+                                    <col style="width: 140px;"> <!-- 2 частей -->
+                                    <col style="width: 160px;"> <!-- 3 частей -->
+                                    <col style="width: 120px;"> <!-- 4 частей -->
+                                    <col style="width: 100%;" class="min-width"> <!-- 5 частей -->
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="col">Документ</th>
+                                        <th class="col">Статус</th>
+                                        <th class="col">Загруженный докмуент</th>
+                                        <th class="col">Дата загрузки РОПом</th>
+                                        <th class="col">История сообщений</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class=" Nscroll-table-body">
+                                <!-- shok2 -->
+                                <table class="Тmontserrat-18-italic">
+                                    <colgroup>
+                                        <col style="width: 100px;"> <!-- 1 часть -->
+                                        <col style="width: 140px;"> <!-- 2 частей -->
+                                        <col style="width: 160px;"> <!-- 3 частей -->
+                                        <col style="width: 120px;"> <!-- 4 частей -->
+                                        <col style="width: 100%;" class="min-width"> <!-- 5 частей -->
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>Паспорт</td>
+                                            <td class="status-cell">принят</td>
+                                            <td><a href="Ссылка">
+                                                    Скачать
+                                                </a>
+                                                <a href="Ссылка">
+                                                    Загрузить </a>
+                                            </td>
+                                            <td>16.03.2024</td>
+                                            <!-- Бублик -->
+                                            <td class="scrollR">
+                                                <br>
+                                                16.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Принято
+                                                <br>
+                                                <br>
+                                                <br>
+                                                15.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу ректора №267-О от 20.02.25.
+                                                <br>
+                                                <br>
+                                                15.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу ректора №267-О от 20.02.25.
+                                                <br>
+                                                <br>
+                                                14.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу ректора №267-О от 20.02.25.
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Матрица</td>
+                                            <td class="status-cell">на доработке</td>
+                                            <td><a href="Ссылка">
+                                                    Загрузить
+                                                </a> </td>
+                                            <td>12.03.2024</td>
+                                            <!-- Бублик -->
+                                            <td class="scrollR">
+                                                <br>
+                                                16.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу
+                                                <br>
+                                                <br>
+                                                <br>
+                                                15.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу ректора №267-О от 20.02.25.
+                                                <br>
+                                                <br>
+                                                15.03.2025:
+                                                <br>
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу ректора №267-О от 20.02.25.
+                                                <br>
+                                                <br>
+                                                14.03.2025:
+                                                <a href="Ссылка">
+                                                    Скачать предыдущую версию файла
+                                                </a>
+                                                <br>
+                                                Не соответствует приказу ректора №267-О от 20.02.25.
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Схема</td>
+                                            <td class="status-cell">Отсутствует</td>
+                                            <td><a href="Ссылка">
+                                                    Загрузить
+                                                </a> </td>
+                                            <td>12.03.2024</td>
+                                            <!-- Бублик -->
+                                            <td class="scrollR">
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- №Тут конец  -->
+                </div>
+            </div>
+
+            <script src="script.js"></script>
+</body>
+
+</html>

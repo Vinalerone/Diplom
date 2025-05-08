@@ -1,0 +1,146 @@
+{% extends "myproject/pages_ol/reports/index.html" %}
+
+{% block title %}Отчёты | ОЛ{% endblock %}
+
+{% block inner_content %}
+<!-- Для Фильтра -->
+<div class="Color-block">
+    <div class="d-flex gap-3 align-items-end flex-wrap Тmontserrat-16-italic">
+        <div class="bold-text Тmontserrat-30-italic">Фильтр</div>
+        <button class="btn btn-outline-secondary Тmontserrat-18-italic">Применить</button>
+        <button class="btn btn-success Тmontserrat-18-italic">Создать файл Excel</button>
+        <!-- Для даты штука -->
+        <div class="d-flex flex-column">
+            <label for="start">Нименование аббревиатуры</label>
+            <input id="vvod" type="text" placeholder="Введите текст" class="gg">
+        </div>
+        <div class="d-flex flex-column">
+            <label for="start">Шифр</label>
+            <input id="vvod" type="text" placeholder="Введите текст" class="gg">
+        </div>
+        <!-- Год набора -->
+        <!-- Год набора (select) -->
+        <div class="d-flex flex-column">
+            <label for="year">Год набора</label>
+            <select id="year" class="ggr">
+                <option value="" disabled selected>Выберите год</option>
+                <!-- Генерируем годы от 2025 до 2010 -->
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+            </select>
+        </div>
+        <!-- Статус для экспертизы     -->
+        <!-- Статус экспертизы (select) -->
+        <div class="d-flex flex-column">
+            <label for="status">Статус ОП</label>
+            <select id="status" class="ggr">
+                <option value="" disabled selected>Выберите статус</option>
+                <option value="passed">Сдан</option>
+                <option value="not_passed">Не_сдан</option>
+            </select>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <label for="svvod">Наименование ОП</label>
+            <div class="input-container">
+                <input type="text" id="svvod" placeholder="Введите текст" class="auto-resize-input">
+                <span id="smeasurer" class="hidden-measurer"></span>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- Для таблиц -->
+<div class="Color-block">
+    <table class="main-table Тmontserrat-16-italic">
+        <colgroup>
+            <col style="width: 10%;">
+            <col style="width: 35%;">
+            <col style="width: 25%;">
+            <col style="width: 15%;">
+            <col style="width: 15%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Год набора</th>
+                <th>Шифр, наименование ОП, аббревиатура</th>
+                <th>ФИО РОПа</th>
+                <th>Дата отправки РОП</th>
+                <th>Статус ОП</th>
+            </tr>
+        </thead>
+    </table>
+
+    <div class="scroll-table-body">
+        <table class="main-table Тmontserrat-16-italic">
+            <colgroup>
+                <col style="width: 10%;">
+                <col style="width: 35%;">
+                <col style="width: 25%;">
+                <col style="width: 15%;">
+                <col style="width: 15%;">
+            </colgroup>
+            <tbody>
+                <tr class="clickable-row" data-target="block-2">
+                    <td>2021</td>
+                    <td>09.03.02 Программная инженерия ПИ</td>
+                    <td>Иванов Иван Сергеевич</td>
+                    <td>15.07.23</td>
+                    <td>сдан</td>
+                </tr>
+
+                <tr class="clickable-row" data-target="block-3">
+                    <td>2022</td>
+                    <td>09.03.01 Информатика и вычислительная техника ИВТ</td>
+                    <td>Петрова Анна Дмитриевна</td>
+                    <td>20.06.24</td>
+                    <td>сдан</td>
+                </tr>
+                
+                <tr class="clickable-row" data-target="block-4">
+                    <td>2020</td>
+                    <td>38.03.05 Бизнес-информатика БИ</td>
+                    <td>Сидоров Алексей Петрович</td>
+                    <td>10.07.22</td>
+                    <td>не сдан</td>
+                </tr>
+                
+                <tr class="clickable-row" data-target="block-5">
+                    <td>2023</td>
+                    <td>01.03.02 Прикладная математика и информатика ПМИ</td>
+                    <td>Кузнецова Елена Владимировна</td>
+                    <td>05.07.25</td>
+                    <td>в процессе</td>
+                </tr>
+                
+                <tr class="clickable-row" data-target="block-6">
+                    <td>2021</td>
+                    <td>09.03.03 Прикладная информатика ПИН</td>
+                    <td>Васильев Денис Игоревич</td>
+                    <td>18.06.23</td>
+                    <td>сдан</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!-- Ваш уникальный контент здесь -->
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'myproject/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h3 class="card-title">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Подтверждение удаления
+        </h3>
+    </div>
+    <div class="card-body">
+        <p>Вы уверены, что хотите удалить новость от {{ news.created_at|date:"d.m.Y H:i" }}?</p>
+        <form method="post" action="{% url 'delete_news' news.pk %}">
+            {% csrf_token %}
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{% url 'ol-news' %}" class="btn btn-secondary">
+                    <i class="fas fa-times me-1"></i> Отмена
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-1"></i> Удалить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
