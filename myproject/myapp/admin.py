@@ -16,10 +16,11 @@ from .models import (
     Department,
     EducationalProgram  # Добавляем импорт новой модели
 )
-
+# ЖИВ
 # Регистрация модели Institute
 @admin.register(Institute)
 class InstituteAdmin(admin.ModelAdmin):
+    
     list_display = ('name',)  # Отображаемое поле
     search_fields = ('name',)  # Поиск по названию
     ordering = ('name',)  # Сортировка по названию
