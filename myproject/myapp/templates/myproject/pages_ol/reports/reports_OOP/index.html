@@ -100,7 +100,7 @@
             <tbody>
                 <tr class="clickable-row" data-target="block-2">
                     <td>2021</td>
-                    <td>09.03.02 Программная инженерия ПИ</td>
+                    <td>09.04.02 Информационные системы и технолоогии ИС</td>
                     <td>Иванов Иван Сергеевич</td>
                     <td>15.07.23</td>
                     <td>сдан</td>
@@ -108,7 +108,7 @@
 
                 <tr class="clickable-row" data-target="block-3">
                     <td>2022</td>
-                    <td>09.03.01 Информатика и вычислительная техника ИВТ</td>
+                    <td>09.04.01 Информатика и вычислительная техника ИВТ</td>
                     <td>Петрова Анна Дмитриевна</td>
                     <td>20.06.24</td>
                     <td>сдан</td>
@@ -137,6 +137,16 @@
                     <td>18.06.23</td>
                     <td>сдан</td>
                 </tr>
+
+                        {% for passport in passport_list %}
+        <tr class="clickable-row" data-target="block-{{ forloop.counter }}"> {# Используем forloop.counter для уникального data-target #}
+            <td>{{ passport.year }}</td>
+            <td>{{ passport.program_info }}</td>
+            <td>{{ passport.head_name }}</td>
+            <td>{{ passport.add_date_formatted }}</td>
+            <td>{{ passport.assessment_status }}</td>
+        </tr>
+        {% endfor %}
             </tbody>
         </table>
     </div>

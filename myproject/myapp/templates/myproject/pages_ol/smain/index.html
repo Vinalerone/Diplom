@@ -3,6 +3,7 @@
 {% block title %}Меню | ОЛ{% endblock %}
 
 {% block content %}
+
     <!-- Этот блок редактировать, тут фильтры и таблица -->
     <Div class="Color-block">
         <Div>
@@ -64,7 +65,6 @@
                         <option value="not_passed">Не_сдан</option>
                     </select>
                 </div>
-                
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     <label for="svvod" class="Тmontserrat-20-italic">Наименование ОП</label>
                     <div class="input-container Тmontserrat-20-italic" >
@@ -77,7 +77,6 @@
                         <span id="smeasurer" class="hidden-measurer"></span>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -86,16 +85,13 @@
             document.addEventListener('DOMContentLoaded', function() {
                 // Находим все строки с классом clickable-row
                 const rows = document.querySelectorAll('.clickable-row');
-                
                 // Добавляем обработчик клика для каждой строки
                 rows.forEach(row => {
                     row.addEventListener('click', function() {
                         // Получаем значение data-target атрибута
                         const target = this.getAttribute('data-target');
-                        
                         // Формируем URL с параметром
                         const url = `http://127.0.0.1:8000/programs/pages_ol/analiz/?block=${target}`;
-                        
                         // Переходим по ссылке
                         window.location.href = url;
                     });
@@ -132,79 +128,146 @@
                         </colgroup>
                           <tbody class="Тmontserrat-16-italic ">
                             <tr class="clickable-row" data-target="block-2">
-                                <td>2025 <br> 09.03.02 Информационные системы и технологии </td>
+                                <td>2025 <br> 09.04.02 Информационные системы и технологии ИС</td>
                                 <td>Иванов Иван Иванович</td>
-                                <td class="status-cell">
-                                  Паспорт - 12.02.2022 - отсутствует <br>
-                                  Схема - 12.02.2022 - отсутствует <br>
-                                  Матрица - 12.02.2022 - отсутствует
-                                </td>
-                                <td class="status-cell">не_сдан</td>
+<td class="">
+  <div class="document-row status-cell">Паспорт - 12.02.2022 - <span class="badge text-bg-danger">  на проверке</span></div>
+  <div class="document-row status-cell">Схема - 12.02.2022 - <span class="badge text-bg-success">принят</span></div>
+  <div class="document-row status-cell">Матрица - 12.02.2022 - <span class="badge text-bg-warning">на доработке</span></div>
+</td>
+                                <td class="">не_сдан</td>
                             </tr>
-                          <tr class="clickable-row" data-target="block-2">
-                              <td>2025 <br> 09.05.08 Цифровая трасформация в управлении бизнесом ЦТВБ </td>
-                              <td>Иванов Иван Иванович</td>
-                              <td class="status-cell">
-                                Паспорт - 12.02.2022 - принят <br>
-                                Схема - 12.02.2022 - отсутствует <br>
-                                Матрица - 12.02.2022 - на доработке
-                              </td>
-                              <td class="status-cell">не_сдан</td>
-                          </tr>
-                          <tr class="clickable-row" data-target="block-2">
-                            <td>2024 <br> 09.05.08 Цифровая трасформация в управлении бизнесом ЦТВБ </td>
-                            <td>Иванов Иван Иванович</td>
-                            <td class="status-cell">
-                              Паспорт - 12.02.2022 - принят <br>
-                              Схема - 12.02.2022 - принят <br>
-                              Матрица - 12.02.2022 - принят
-                            </td>
-                            <td class="status-cell">сдан</td>
-                        </tr>
-                        <tr class="clickable-row" data-target="block-2">
-                            <td>2024 <br> 09.05.06 Высшая математика ВМ </td>
-                            <td>Иванов Иван Иванович</td>
-                            <td class="status-cell">
-                              Паспорт - 12.02.2022 - принят <br>
-                              Схема - 12.02.2022 - принят <br>
-                              Матрица - 12.02.2022 - принят
-                            </td>
-                            <td class="status-cell">сдан</td>
-                        </tr>
-                    </tr>
-                    <tr class="clickable-row" data-target="block-2">
-                        <td>2023 <br> 09.05.06 Высшая математика ВМ </td>
-                        <td>Иванов Иван Иванович</td>
-                        <td class="status-cell">
-                          Паспорт - 12.02.2022 - принят <br>
-                          Схема - 12.02.2022 - принят <br>
-                          Матрица - 12.02.2022 - принят
-                        </td>
-                        <td class="status-cell">сдан</td>
-                    </tr>
-                    <tr class="clickable-row" data-target="block-2">
-                        <td>2022 <br> 09.05.06 Высшая математика ВМ </td>
-                        <td>Иванов Иван Иванович</td>
-                        <td class="status-cell">
-                          Паспорт - 12.02.2022 - принят <br>
-                          Схема - 12.02.2022 - принят <br>
-                          Матрица - 12.02.2022 - принят
-                        </td>
-                        <td class="status-cell">сдан</td>
-                    </tr>
-                    <tr class="clickable-row" data-target="block-2">
-                        <td>2021 <br> 09.05.06 Высшая математика ВМ </td>
-                        <td>Иванов Иван Иванович</td>
-                        <td class="status-cell">
-                          Паспорт - 12.02.2022 - принят <br>
-                          Схема - 12.02.2022 - принят <br>
-                          Матрица - 12.02.2022 - принят
-                        </td>
-                        <td class="status-cell">сдан</td>
-                    </tr>
+        {% for program in programs %}
+        <tr class="clickable-row" data-target="block-2">
+<td>
+    {{ program.year|default:"-" }} <p>
+    {{ program.specialty_code|default:"-" }}
+    {{ program.name|default:"Не указано" }}
+    {{ program.abbreviation }} {# Отладочный вывод #}
+    {% if program.abbreviation %}{% endif %}
+</td>
+            <td>{{ program.head }}</td>
+            <td class="">
+                    {% with program.passports.first as passport %}
+        <div class="document-row "><div class="status-cell"> Паспорт - {{ passport.add_date|date:"d.m.Y" }} 12.02.2025-
+        {% if passport %}
+            {{ passport.get_assessment_display|default:"не_сдан" }}
+        {% else %}
+            отсутствует
+        {% endif %}
+    {% endwith %}</div>
+    <!-- Для схемы -->
+    {% with program.schemes.first as scheme %}
+        <div class="document-row"><div class="status-cell">Схема - {{ scheme.creation_date|date:"d.m.Y" }} 12.02.2025 - <span>
+        {% if scheme %}
+            {{ scheme.status|default:"отсутствует" }}
+        {% else %}
+            отсутствует
+        {% endif %}</div>
+    {% endwith %}</span></div>
+    <!-- Для матрицы -->
+    {% with program.matrices.first as matrix %}
+        <div class="document-row"><div class="status-cell">Матрица - {{ matrix.add_date|date:"d.m.Y" }} 12.02.2025 - <span>
+        {% if matrix %}
+            {{ matrix.get_assessment_display|default:"не_сдан" }}
+        {% else %}
+            отсутствует
+        {% endif %}</div>
+    {% endwith %}</span></div>
+</td>
+            </td>
+            <td class="status-cell">{{ program.overall_status }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Нет данных о программах</td>
+        </tr>
+        {% endfor %}
                       </tbody>
                       </div>
                       </table>
                   </div>
     </Div>
+{# Исправленный JavaScript - заменяет div на span при стилизации статусов #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const statusCells = document.querySelectorAll('.status-cell');
+    statusCells.forEach(cell => {
+        // Сохраняем оригинальное содержимое с переносами
+        const originalHTML = cell.innerHTML;
+        // Временный контейнер для обработки
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = originalHTML;
+        // Получаем текст с сохранением переносов (с учетом <br> и \n)
+        const textWithBreaks = tempDiv.textContent || tempDiv.innerText;
+        // Разбиваем на строки
+        const lines = textWithBreaks.split(/<br>/).filter(line => line.trim() !== '');
+        // Очищаем ячейку
+        cell.innerHTML = '';
+
+        // Обрабатываем каждую строку
+        lines.forEach(line => {
+            // Используем span вместо div для контейнера строки, чтобы избежать блочного отображения
+            const lineSpan = document.createElement('span');
+            // Возможно, здесь нужен небольшой отступ между строками, если <br> недостаточно
+            // lineSpan.style.marginBottom = '1px'; // Этот стиль для span может не работать как для div
+            // Если нужен отступ, лучше добавить его через CSS класс или к <br>
+
+            let processedLine = line.trim();
+
+            // Список замен для статусов
+            const replacements = [
+                { regex: /на[\s_]*проверке/gi, class: "badge text-bg-danger" },
+                { regex: /отсутствует/gi, class: "badge text-bg-secondary" },
+                { regex: /принят[а]?/gi, class: "badge text-bg-success" },
+                { regex: /на доработке/gi, class: "badge text-bg-warning" },
+                { regex: /не[\s_]*проверено/gi, class: "badge text-bg-danger" }
+            ];
+
+            // Применяем замены - оборачиваем найденные статусы в span с классами
+            replacements.forEach(replacement => {
+                processedLine = processedLine.replace(replacement.regex, 
+                    match => `<span class="${replacement.class}">${match}</span>`); {# ИСПРАВЛЕНО: Заменено <div> на <span> #}
+            });
+
+            lineSpan.innerHTML = processedLine; // Вставляем обработанную строку в span
+            cell.appendChild(lineSpan); // Добавляем span в ячейку
+
+            // Добавляем <br> после каждого span, кроме последнего (если нужно)
+            // Это можно сделать, проверяя, является ли текущая строка последней в lines
+            if (lines.indexOf(line) < lines.length - 1) {
+                 cell.appendChild(document.createElement('br'));
+            }
+        });
+    });
+});
+</script>
+
+{# CSS для стилизации (если нужно) #}
+<style>
+/* Убедитесь, что у вас определены стили для классов badge и text-bg-* */
+/* .badge { display: inline-block; ... } */ /* badge часто делают inline-block */
+/* .text-bg-danger { ... } */
+/* .text-bg-secondary { ... } */
+/* ... */
+
+/* Возможно, нужен стиль для document-row, если вы оставили его в шаблоне */
+/* .document-row { display: inline; } */ /* Если div заменен на span, это уже inline */
+
+
+/* Этот стиль может быть не нужен после исправления JS на использование span */
+/* .status-cell div:last-child {
+    margin-bottom: 0 !important;
+} */
+
+/* Если вы решили добавить <br> в JS, и нужен отступ, можно стилизовать <br> или родительский span */
+/* .status-cell br {
+    margin-bottom: 1px;
+    content: "";
+    display: block;
+} */
+
+
+</style>
+
 {% endblock %}

@@ -4,29 +4,36 @@ from django.conf.urls.static import static
 from .views import (
     ProgramListView,
     ROPPageView,
-    OLPageView,
     OLAnalysisView,
     OLNewsView,
     KK,
     OlOt2View,
     OlOt1View,
     OLReportsView
+    
 )
 
 from django.views.generic import TemplateView
 from . import views
 
 from .views import delete_news, edit_news
+from .views import debug_news_view
+from django.urls import include  # Добавьте этот импорт
+from .views import OLPageView  # Для варианта с функцией
 
 urlpatterns = [
+
+    
     # Основные пути
     # path('test/', TemplateView.as_view(template_name='pages_ol/main/index.html')),
     path('', ProgramListView.as_view(), name='program-list'),
     path('pages_rop/', ROPPageView.as_view(), name='rop-page'),
+    path('debug/news/', debug_news_view),
     
     # Пути для OL
     path('pages_ol/', KK.as_view(), name='ol-s'),
-    path('pages_ol/smain/', OLPageView.as_view(), name='ol-page'),
+    # urls.py
+    path('pages_ol/smain/', OLPageView, name='ol-page'),  # Без .as_view() для функции
     path('pages_ol/analiz/', OLAnalysisView.as_view(), name='ol-analiz'),
     path('pages_ol/news/', OLNewsView.as_view(), name='ol-news'),
     path('pages_ol/reports/', OLReportsView.as_view(), name='ol-reports'),
@@ -41,11 +48,3 @@ urlpatterns = [
     path('news/edit/<int:pk>/', edit_news, name='edit_news'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-# Для отладки (можно раскомментировать при необходимости)
-# from django.views.decorators.http import require_GET
-# @require_GET
-# def debug_view(request):
-#     print("DEBUG: Запрос получен!")
-#     return OLPageView.as_view()(request)
-# urlpatterns += [path('debug/', debug_view)]

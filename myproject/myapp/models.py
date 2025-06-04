@@ -188,15 +188,16 @@ class Matrix(models.Model):
         "ID Матрицы",
         primary_key=True
     )
-    
+
     educational_program = models.ForeignKey(
         EducationalProgram,
         on_delete=models.CASCADE,
         verbose_name="Образовательная программа",
         related_name='matrices',
-        limit_choices_to={'status': 'development'},  # Только программы в разработке
+        # limit_choices_to={'status': 'development'}, # Временно закомментировать для отладки
         help_text="Выберите образовательную программу из списка"
     )
+    
     
     licensing_employee = models.ForeignKey(
         Employee,
@@ -248,15 +249,18 @@ class Matrix(models.Model):
         return f"Матрица для {self.educational_program}"
     
 #ПАСПОРТ
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 class Passport(models.Model):
-    """Модель Passport компетенций"""
+    """Модель паспорта образовательной программы"""
     ASSESSMENT_CHOICES = [
         (1, 'сдан'),
         (2, 'не_сдан')
     ]
     
     id_matrix = models.AutoField(
-        "ID Паспорта",
+        _("ID Паспорта"),
         primary_key=True
     )
     
@@ -265,58 +269,49 @@ class Passport(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Образовательная программа",
         related_name='passports',
-        limit_choices_to={'status': 'development'},
+        # limit_choices_to={'status': 'development'}, # Временно закомментировать для отладки
         help_text="Выберите образовательную программу из списка"
     )
     
     licensing_employee = models.ForeignKey(
-        Employee,
+        'Employee',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="Сотрудник ОЛ",
+        verbose_name=_("Сотрудник ОЛ"),
         limit_choices_to={'position__icontains': 'лицензирования'},
-        help_text="Выберите сотрудника отдела лицензирования"
+        help_text=_("Выберите сотрудника отдела лицензирования")
     )
     
     add_date = models.DateField(
-        "Дата добавления РОП",
+        _("Дата добавления РОП"),
         auto_now_add=True,
         editable=False
     )
     
-    check_date = models.DateField(
-        "Дата проверки ОЛ",
-        null=True,
-        blank=True
-    )
-    
-    document_link = models.URLField(
-        "Ссылка на документ",
-        max_length=500,
-        blank=True
-    )
-    
-    comment = models.TextField(
-        "Комментарий ОЛ",
-        blank=True,
-        max_length=1000
-    )
-    
-    assessment = models.PositiveSmallIntegerField(
-        "Оценка",
+    assessment = models.IntegerField(
+        _("Статус проверки"),
         choices=ASSESSMENT_CHOICES,
+        default=2
+    )
+    
+    document_link = models.FileField(
+        _("Файл документа"),
+        upload_to='passports/',
         null=True,
         blank=True
     )
-
+    
     class Meta:
-        verbose_name = "Паспорт компетенций"
-        verbose_name_plural = "Паспорта компетенций"  # Исправлено на множественное число
+        verbose_name = _("Паспорт ОП")
+        verbose_name_plural = _("Паспорта ОП")
         ordering = ['-add_date']
-
+    
     def __str__(self):
-        return f"Паспорт для {self.educational_program} ({self.id_matrix})"
+        return f"Паспорт {self.educational_program} от {self.add_date.strftime('%d.%m.%Y')}"
+    
+    def get_status_display(self):
+        return dict(self.ASSESSMENT_CHOICES).get(self.assessment, 'не_сдан')
     
     #Схема формирования компетенций.
 
@@ -333,13 +328,14 @@ class Scheme(models.Model):
         help_text="Уникальный идентификатор схемы"
     )
     
+
     educational_program = models.ForeignKey(
         EducationalProgram,
         on_delete=models.CASCADE,
         verbose_name="Образовательная программа",
         related_name='schemes',
-        limit_choices_to={'status': 'development'},
-        help_text="Связанная образовательная программа"
+        # limit_choices_to={'status': 'development'}, # Временно закомментировать для отладки
+        help_text="Выберите образовательную программу из списка"
     )
     
     responsible_employee = models.ForeignKey(

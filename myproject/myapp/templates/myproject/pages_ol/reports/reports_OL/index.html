@@ -133,9 +133,9 @@
             </colgroup>
             <tbody>
                 <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
+                    <td> </td>
                     <td>2021</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
+                    <td>09.03.02 Информационные системы и технологии ИС</td>
                     <td>15.07.23</td>
                     <td>14.07.23</td>
                     <td>Не проверен</td>
@@ -143,67 +143,54 @@
                 <tr class="clickable-row" data-target="block-2">
                     <td>Иванов Иван Сергеевич</td>
                     <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
+                    <td>09.03.02 Информационные системы и технологии ИС</td>
                     <td>15.07.23</td>
                     <td>14.07.23</td>
                     <td>Проверен</td>
                 </tr>
                 <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
-                <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
-                <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
-                <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
-                <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
-                <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
-                <tr class="clickable-row" data-target="block-2">
-                    <td>Иванов Иван Сергеевич</td>
-                    <td>2020</td>
-                    <td>09.03.21 Информационные системы и технологии</td>
-                    <td>15.07.23</td>
-                    <td>14.07.23</td>
-                    <td>Проверен</td>
-                </tr>
+    <td>Петров Алексей Дмитриевич</td>
+    <td>2022</td>
+    <td>09.03.04 Программная инженерия ПИ</td>
+    <td>20.08.24</td>
+    <td>19.08.24</td>
+    <td>Проверен</td>
+</tr>
+<tr class="clickable-row" data-target="block-2">
+    <td>Сидорова Мария Ивановна</td>
+    <td>2021</td>
+    <td>09.03.03 Прикладная информатика ПИНФ</td>
+    <td>10.06.23</td>
+    <td>09.06.23</td>
+    <td>Проверен</td>
+</tr>
+<tr class="clickable-row" data-target="block-2">
+    <td></td>
+    <td>2023</td>
+    <td>09.03.02 Информационные системы и технологии ИСТ</td>
+    <td>15.09.25</td>
+    <td>14.09.25</td>
+    <td>Не проверен</td>
+</tr>
+<tr class="clickable-row" data-target="block-2">
+    <td></td>
+    <td>2020</td>
+    <td>09.03.01 Информатика и вычислительная техника ИВТ</td>
+    <td>05.07.22</td>
+    <td>04.07.22</td>
+    <td>Не проверен</td>
+</tr>
+        {% for matrix in matrix_list %}
+        <tr class="clickable-row" data-target="block-{{ forloop.counter }}"> {# Используем forloop.counter для уникального data-target #}
+            <td>{{ matrix.empty_column }}</td> {# Выводим содержимое первого столбца #}
+            <td>{{ matrix.year }}</td>
+            <td>{{ matrix.program_info }}</td>
+            <td>{{ matrix.add_date_formatted }}</td>
+            <td>{{ matrix.check_date_formatted }}</td>
+            <td>{{ matrix.assessment_status }}</td>
+        </tr>
+        {% endfor %}
+              
             </tbody>
         </table>
     </div>

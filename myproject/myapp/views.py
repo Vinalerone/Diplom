@@ -29,8 +29,99 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import News  # Добавьте этот импорт
 import json
+# Для РОП ГЛ Меню
+from django.shortcuts import render
+from .models import EducationalProgram
 
-from .models import News  
+def OLPageView(request):
+    programs = EducationalProgram.objects.prefetch_related(
+        'passports',  # Изменили с passport_set
+        'schemes',    # Изменили с scheme_set
+        'matrices'    # Изменили с matrix_set
+    ).all()
+    
+    program_data = []
+    
+    for program in programs:
+        passport = program.passports.first()  # Изменили с passport_set
+        scheme = program.schemes.first()      # Изменили с scheme_set
+        matrix = program.matrices.first()     # Изменили с matrix_set
+        
+        # Паспорт
+        passport_status = "отсутствует"
+        passport_date = ""
+        if passport:
+            passport_date = passport.add_date.strftime("%d.%m.%Y") if passport.add_date else ""
+            passport_status = "сдан" if passport.assessment == 1 else "не_сдан"
+        
+        # Схема
+        scheme_status = "отсутствует"
+        scheme_date = ""
+        if scheme:
+            scheme_date = scheme.creation_date.strftime("%d.%m.%Y") if scheme.creation_date else ""
+            scheme_status = scheme.status
+        
+        # Матрица
+        matrix_status = "отсутствует"
+        matrix_date = ""
+        if matrix:
+            matrix_date = matrix.add_date.strftime("%d.%m.%Y") if matrix.add_date else ""
+            matrix_status = "сдан" if matrix.assessment == 1 else "не_сдан"
+        
+        # Общий статус
+        overall_status = "не_сдан"
+        if passport_status == "сдан" and scheme_status == "сдана" and matrix_status == "сдан":
+            overall_status = "сдан"
+        
+        program_data.append({
+    'year': program.enrollment_year,
+    'specialty_code': program.specialty_code,
+    'name': program.name or "Не указано",
+    'abbreviation': program.abbreviation or "-",  # Правильно получаем аббревиатуру из объекта program
+    'head': str(program.head) if program.head else "Не указан",
+    'passport_status': passport_status,
+    'passport_date': passport_date,
+    'scheme_status': scheme_status,
+    'scheme_date': scheme_date,
+    'matrix_status': matrix_status,
+    'matrix_date': matrix_date,
+    'overall_status': overall_status,
+        })
+    
+    return render(request, 'myproject/pages_ol/smain/index.html', {'programs': program_data})
+
+
+# Временный виев для новостей РОП
+# myapp/views.py
+from django.http import HttpResponse
+from .models import News
+
+def debug_news_view(request):
+    news = News.objects.all().order_by('-created_at')
+    response = "<h1>Последние новости (всего: {})</h1>".format(news.count())
+    for item in news:
+        response += f"""
+        <div style="margin: 20px; padding: 10px; border: 1px solid #ccc;">
+            <h3>{item.created_at.date()}</h3>
+            <p>{item.content}</p>
+        </div>
+        """
+    return HttpResponse(response)
+# Новости РОП
+class BaseProgramView:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['news_lis'] = News.objects.all().order_by('-created_at')
+        return context
+    
+class ROPPageView(BaseProgramView, TemplateView):  # BaseProgramView должен быть ПЕРВЫМ
+    template_name = 'myproject/pages_rop/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  # Важно!
+        context['programs'] = EducationalProgram.objects.all()
+        return context
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -86,8 +177,71 @@ def save_news(request):
 class OlOt1View(TemplateView):
     template_name = 'myproject/pages_ol/reports/reports_OOP/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Получаем все объекты Passport.
+        # Используем select_related для получения связанных EducationalProgram и Head_of_the_educational_program
+        # в одном запросе, что более эффективно.
+        passports = Passport.objects.select_related(
+            'educational_program',
+            'educational_program__head'
+        ).all()
+        passport_list_data = []
+        for passport in passports:
+            program = passport.educational_program
+            head = program.head if program else None # Руководитель связан с программой
+            # Формируем данные для одной строки таблицы
+            passport_data = {
+                'year': program.enrollment_year if program else "-",
+                'program_info': f"{program.specialty_code if program else '-'} {program.name if program else 'Не указана'} {program.abbreviation if program else '-'}",
+                'head_name': str(head) if head else "Не указан",
+                # Форматируем дату в ДД.ММ.ГГ
+                'add_date_formatted': passport.add_date.strftime('%d.%m.%y') if passport.add_date else "-",
+                # Используем get_assessment_display для получения читаемого статуса
+                'assessment_status': passport.get_assessment_display(),
+            }
+            passport_list_data.append(passport_data)
+        # Добавляем список данных паспортов в контекст шаблона
+        context['passport_list'] = passport_list_data
+        return context
+
 class OlOt2View(TemplateView):
     template_name = 'myproject/pages_ol/reports/reports_OL/index.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Получаем все объекты Matrix.
+        # Используем select_related для получения связанных EducationalProgram,
+        # Head_of_the_educational_program и Employee в одном запросе.
+        matrices = Matrix.objects.select_related(
+            'educational_program',
+            'educational_program__head', # Связь через educational_program
+            'licensing_employee' # Связь напрямую
+        ).all()
+        matrix_list_data = []
+        for matrix in matrices: # Цикл по каждой матрице
+            program = matrix.educational_program
+            head = program.head if program else None # Руководитель связан с программой
+            licensing_employee = matrix.licensing_employee
+            # Формируем данные для одной строки таблицы
+            matrix_data = {
+                'empty_column': '', # Оставляем первый столбец пустым, как в примере
+                'year': program.enrollment_year if program else "-",
+                'program_info': f"{program.specialty_code if program else '-'} {program.name if program else 'Не указана'} {program.abbreviation if program else '-'}",
+                # Используем дату добавления РОП из матрицы
+                'add_date_formatted': matrix.add_date.strftime('%d.%m.%y') if matrix.add_date else "-",
+                # Используем дату проверки ОЛ из матрицы
+                'check_date_formatted': matrix.check_date.strftime('%d.%m.%y') if matrix.check_date else "-",
+                # Используем get_assessment_display для получения читаемого статуса оценки матрицы
+                # Ваша модель Matrix имеет поле assessment, но статус "Не проверен"
+                # не соответствует вариантам 'сдан' (1) или 'не сдан' (2).
+                # Возможно, это статус из поля comment или другая логика.
+                # Временно будем использовать get_assessment_display, но вам может потребоваться адаптировать это.
+                'assessment_status': matrix.get_assessment_display() if matrix.assessment is not None else "Не проверен",
+            }
+            matrix_list_data.append(matrix_data)
+        # Добавляем список данных матриц в контекст шаблона
+        context['matrix_list'] = matrix_list_data
+        return context
 
 class BaseProgramView:
     """Базовый класс с общим функционалом"""
@@ -96,9 +250,9 @@ class BaseProgramView:
         context['news_list'] = News.objects.all().order_by('-created_at')[:5]
         return context
 
-class OLPageView(BaseProgramView, TemplateView):
-    """Главная страница ОЛ"""
-    template_name = 'myproject/pages_ol/smain/index.html'  # Английский путь
+# class OLPageView(BaseProgramView, TemplateView):
+#     """Главная страница ОЛ"""
+#     template_name = 'myproject/pages_ol/smain/index.html'  # Английский путь
 
 class KK(BaseProgramView, TemplateView):
     """Главная страница ОЛ"""
@@ -121,23 +275,19 @@ class OLReportsView(BaseProgramView, TemplateView):
     """Базовая страница отчётов"""
     template_name = 'myproject/pages_ol/reports/index.html'
 # Ниже РОП
-class ROPPageView(TemplateView):
-    template_name = 'myproject/pages_rop/index.html'
+# class ROPPageView(BaseProgramView, TemplateView):
+#     template_name = 'myproject/pages_rop/index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['programs'] = EducationalProgram.objects.all()  # Или нужный вам queryset
-        return context
-
-
-
-class BaseProgramView:
-    """Базовый класс с общим функционалом"""
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Добавляем последние 5 новостей во все страницы
-        context['news_list'] = News.objects.all().order_by('-created_at')[:5]
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)  # <- Важно!
+#         context['programs'] = EducationalProgram.objects.all()
+#         return context
+    
+# class BaseProgramView:
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)  # <- Важно!
+#         context['news_lis'] = News.objects.all().order_by('-created_at')
+#         return context
 
 class ProgramListView(BaseProgramView, ListView):
     """Список образовательных программ"""

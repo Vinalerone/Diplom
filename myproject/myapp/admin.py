@@ -131,10 +131,10 @@ class DepartmentAdmin(admin.ModelAdmin):
 class EducationalProgramAdmin(admin.ModelAdmin):
     list_display = ('name', 'abbreviation', 'department', 'head', 'status', 'enrollment_year')
     list_filter = ('status', 'department', 'enrollment_year')
+    # search_fields: head__surname и head__name работают при наличии autocomplete_fields или raw_id_fields для head
     search_fields = ('name', 'abbreviation', 'specialty_code', 'head__surname', 'head__name')
-    raw_id_fields = ('head',)
-    autocomplete_fields = ('head',)
-    
+    raw_id_fields = ('head',) # raw_id_fields и autocomplete_fields можно использовать вместе или по отдельности
+    autocomplete_fields = ('head',) # autocomplete_fields требует настройки search_fields на связанной модели Head_of_the_educational_program
     fieldsets = (
         ('Основная информация', {
             'fields': ('name', 'abbreviation', 'specialty_code', 'enrollment_year', 'status')
@@ -178,23 +178,41 @@ class MatrixAdmin(admin.ModelAdmin):
             kwargs["queryset"] = Employee.objects.filter(position__icontains='лицензирования')
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
     
-    #Passport
+#     #Passport
+# @admin.register(Passport)
+# class PassportAdmin(admin.ModelAdmin):
+#     list_display = ('educational_program', 'get_licensing_employee', 'add_date', 'assessment_status')
+#     search_fields = ('educational_program__name', 'educational_program__abbreviation')
+#     autocomplete_fields = ['licensing_employee']
+    
+#     def get_licensing_employee(self, obj):
+#         if obj.licensing_employee:
+#             return f"{obj.licensing_employee.surname} {obj.licensing_employee.name[0]}.{obj.licensing_employee.patronymic[0]}."
+#         return "Не назначен"
+#     get_licensing_employee.short_description = 'Сотрудник ОЛ'
+#     get_licensing_employee.admin_order_field = 'licensing_employee__surname'
+    
+#     def assessment_status(self, obj):
+#         return obj.get_assessment_display() if obj.assessment else "Не оценена"
+#     assessment_status.short_description = 'Оценка'
+
+from django.contrib import admin
+from .models import Passport, EducationalProgram, Employee # Убедитесь, что импортировали все необходимые модели
 @admin.register(Passport)
 class PassportAdmin(admin.ModelAdmin):
-    list_display = ('educational_program', 'get_licensing_employee', 'add_date', 'assessment_status')
-    search_fields = ('educational_program__name', 'educational_program__abbreviation')
-    autocomplete_fields = ['licensing_employee']
+    list_display = ('educational_program', 'add_date', 'get_assessment_display')
+    list_filter = ('assessment', 'add_date')
+    search_fields = ('educational_program__name',)
     
-    def get_licensing_employee(self, obj):
-        if obj.licensing_employee:
-            return f"{obj.licensing_employee.surname} {obj.licensing_employee.name[0]}.{obj.licensing_employee.patronymic[0]}."
-        return "Не назначен"
-    get_licensing_employee.short_description = 'Сотрудник ОЛ'
-    get_licensing_employee.admin_order_field = 'licensing_employee__surname'
-    
-    def assessment_status(self, obj):
-        return obj.get_assessment_display() if obj.assessment else "Не оценена"
-    assessment_status.short_description = 'Оценка'
+    # Добавляем 'educational_program' в raw_id_fields
+    raw_id_fields = ('educational_program', 'licensing_employee',)
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if not request.user.is_superuser:
+            # Фильтруем по значению 1, которое соответствует 'сдан' в ASSESSMENT_CHOICES
+            qs = qs.filter(assessment=1)
+        return qs
+
     
     # Фильтр для выбора только сотрудников ОЛ
     def formfield_for_foreignkey(self, db_field, request, **kwargs):

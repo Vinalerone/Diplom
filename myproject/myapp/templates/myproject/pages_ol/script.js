@@ -37,10 +37,11 @@ const keywords = [
     { text: "принята", className: "badge text-bg-success" },
    // { text: "не принят", className: "red" },
     { text: "принят", className: "badge text-bg-success" },
-    { text: "отсутствует", className: "badge text-bg-danger" },
+   // { text: "отсутствует", className: "badge text-bg-danger" },
     { text: "на доработке", className: "badge text-bg-warning" },
     { text: "не сдана", className: "badge text-bg-danger" },
-    { text: "Сдана", className: "badge text-bg-success" }
+    { text: "Сдана", className: "badge text-bg-success" },
+    { text: "не_проверено", className: "badge text-bg-danger" }
 ];
 
 // Функция для оборачивания ключевых слов в <span>
